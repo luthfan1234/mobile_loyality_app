@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,36 +9,65 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
-  Animation<double>? _fadeAnimation;
-  Animation<Offset>? _slideAnimation;
-
+class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeIn));
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeOut));
-
-    _controller!.forward();
+    // Panggil dialog setelah frame pertama selesai di-build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showWelcomeDialog(context);
+    });
   }
 
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
+  // Method untuk menampilkan dialog
+  void _showWelcomeDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Bisa ditutup dengan tap di luar
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop(); // Tutup dialog
+            },
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(
+                    'assets/images/popup.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop(); // Tutup dialog
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -50,36 +80,104 @@ class _HomeScreenState extends State<HomeScreen>
             fit: BoxFit.cover,
           ),
         ),
-        child: _fadeAnimation == null || _slideAnimation == null
-            ? const SizedBox.shrink()
-            : FadeTransition(
-                opacity: _fadeAnimation!,
-                child: SlideTransition(
-                  position: _slideAnimation!,
-                  child: Column(
-                    children: [
-                      // Header section
-                      const _HeaderSection(),
-
-                      // Spacing 24px
-                      const SizedBox(height: 24),
-
-                      // Stack untuk menempatkan container di atas _Link_Group
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            // Link Group di belakang
-                            const _Link_Group(),
-                            // Container putih di atas
-                            _Scrollable_Contain(context),
-                          ],
-                        ),
+        child:
+            Column(
+                  children: [
+                    const _HeaderSection(),
+                    const SizedBox(height: 24),
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          const _Link_Group(),
+                          _Scrollable_Contain(context),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                )
+                .animate()
+                .fadeIn(duration: 800.ms, delay: 300.ms)
+                .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      clipBehavior: Clip.none,
+      children: [
+        SizedBox(
+          height: 100, // Atur tinggi background navigation bar
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: 0,
+            selectedItemColor: const Color(0xFF7743DB),
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Colors.white, // Warna background
+            elevation: 8, // Shadow/elevation
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.card_giftcard_rounded),
+                label: 'Reward',
+              ),
+              BottomNavigationBarItem(icon: SizedBox.shrink(), label: ''),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.task_rounded),
+                label: 'Mission',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle_rounded),
+                label: 'Profile',
+              ),
+            ],
+          ),
+        ),
+
+        // Tombol scan melayang
+        Positioned(
+          bottom: 40,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7743DB),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.qr_code_scanner,
+                  color: Colors.white,
+                  size: 32,
                 ),
               ),
-      ),
+              const SizedBox(height: 4),
+              Text(
+                'Scan',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -328,7 +426,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ],
                       ),
-                    ),
+                    ).animate().fadeIn(delay: (300 * (index + 1)).ms).slideX(),
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -377,7 +475,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 20,
+                      vertical: 50,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,91 +534,105 @@ class _HomeScreenState extends State<HomeScreen>
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 3,
-                              itemBuilder: (context, index) => Container(
-                                width: 167,
-                                height: 156,
-                                margin: EdgeInsets.only(
-                                  left: index == 0 ? 0 : 16,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
+                              itemBuilder: (context, index) =>
+                                  Container(
+                                        width: 167,
+                                        height: 156,
+                                        margin: EdgeInsets.only(
+                                          left: index == 0 ? 0 : 16,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFFFF4E6),
+                                          color: Colors.white,
                                           borderRadius: BorderRadius.circular(
                                             12,
                                           ),
-                                        ),
-                                        child: Text(
-                                          "+500 points",
-                                          style: GoogleFonts.inter(
-                                            color: Color(0xFFFCB351),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            height: 1.5,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      Text(
-                                        index == 0
-                                            ? "Social Media Engagement"
-                                            : index == 1
-                                            ? "Daily Streak"
-                                            : "Invite Friends",
-                                        style: GoogleFonts.inter(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      OutlinedButton(
-                                        onPressed: () {},
-                                        style: OutlinedButton.styleFrom(
-                                          side: const BorderSide(
-                                            color: Color(0xFF7743DB),
-                                            width: 1,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              30,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.1,
+                                              ),
+                                              blurRadius: 6,
+                                              offset: const Offset(0, 3),
                                             ),
-                                          ),
-                                          minimumSize: const Size(143, 32),
+                                          ],
                                         ),
-                                        child: Text(
-                                          "Join Mission",
-                                          style: GoogleFonts.inter(
-                                            color: const Color(0xFF7743DB),
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 4,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFFFF4E6),
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Text(
+                                                  "+500 points",
+                                                  style: GoogleFonts.inter(
+                                                    color: Color(0xFFFCB351),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.5,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                index == 0
+                                                    ? "Social Media Engagement"
+                                                    : index == 1
+                                                    ? "Daily Streak"
+                                                    : "Invite Friends",
+                                                style: GoogleFonts.inter(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              OutlinedButton(
+                                                onPressed: () {},
+                                                style: OutlinedButton.styleFrom(
+                                                  side: const BorderSide(
+                                                    color: Color(0xFF7743DB),
+                                                    width: 1,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          30,
+                                                        ),
+                                                  ),
+                                                  minimumSize: const Size(
+                                                    143,
+                                                    32,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "Join Mission",
+                                                  style: GoogleFonts.inter(
+                                                    color: const Color(
+                                                      0xFF7743DB,
+                                                    ),
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                      )
+                                      .animate()
+                                      .fadeIn(delay: (300 * (index + 1)).ms)
+                                      .slideX(),
                             ),
                           ),
                         ),
@@ -531,8 +643,8 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
+
           //NAVBAR
-          
         ],
       ),
     );

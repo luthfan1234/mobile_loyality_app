@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_application_2/utils/page_route_animation.dart';
 import 'home_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -10,54 +12,16 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _slideWelcomeAnimation;
-  late Animation<Offset> _slideButtonAnimation;
-  late Animation<double> _fadeAnimation;
-
+class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   void initState() {
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
-
-    _slideWelcomeAnimation = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero).animate(
-      CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5, curve: Curves.easeOut)),
-    );
-
-    _slideButtonAnimation = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero).animate(
-      CurvedAnimation(parent: _controller, curve: const Interval(0.5, 1.0, curve: Curves.easeOut)),
-    );
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-        transitionDuration: const Duration(milliseconds: 1000),
-      ),
+      CustomPageRoute(child: const HomeScreen()),
     );
   }
 
@@ -82,31 +46,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(flex: 3), // Replace hardcoded padding
-                // Welcome section
-                FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: SlideTransition(
-                    position: _slideWelcomeAnimation,
-                    child: const _WelcomeSection(),
-                  ),
-                ),
-
+                const Spacer(flex: 3),
+                const _WelcomeSection()
+                    .animate()
+                    .fadeIn(duration: 800.ms, delay: 300.ms)
+                    .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
                 const SizedBox(height: 56),
-
-                // Buttons section
-                FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: SlideTransition(
-                    position: _slideButtonAnimation,
-                    child: _ButtonSection(
-                      onLoginPressed: _navigateToHome,
-                      onGuestPressed: _continueAsGuest,
-                    ),
-                  ),
-                ),
-
-                const Spacer(), // Push content up
+                _ButtonSection(
+                  onLoginPressed: _navigateToHome,
+                  onGuestPressed: _continueAsGuest,
+                )
+                    .animate()
+                    .fadeIn(duration: 800.ms, delay: 500.ms)
+                    .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+                const Spacer(),
               ],
             ),
           ),
@@ -116,7 +69,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
   }
 }
 
-// Separate widget to prevent rebuilds
 class _WelcomeSection extends StatelessWidget {
   const _WelcomeSection();
 
@@ -162,7 +114,6 @@ class _WelcomeSection extends StatelessWidget {
   }
 }
 
-// Separate widget for buttons
 class _ButtonSection extends StatelessWidget {
   final VoidCallback onLoginPressed;
   final VoidCallback onGuestPressed;
