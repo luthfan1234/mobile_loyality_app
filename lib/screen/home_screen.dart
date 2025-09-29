@@ -474,7 +474,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Bagian kiri: Text + Button
                         Expanded(
                           flex: 1,
                           child: Column(
@@ -520,7 +519,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         const SizedBox(width: 20),
 
-                        // Bagian kanan: List Card horizontal
                         Expanded(
                           flex: 2,
                           child: SizedBox(
@@ -542,6 +540,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           boxShadow: [
                                             BoxShadow(
+                                              // ignore: deprecated_member_use
                                               color: Colors.black.withOpacity(
                                                 0.1,
                                               ),
