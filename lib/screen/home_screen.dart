@@ -13,24 +13,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Panggil dialog setelah frame pertama selesai di-build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showWelcomeDialog(context);
     });
   }
 
-  // Method untuk menampilkan dialog
   void _showWelcomeDialog(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: true, // Bisa ditutup dengan tap di luar
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return Dialog(
           backgroundColor: Colors.transparent,
           elevation: 0,
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop(); // Tutup dialog
+              Navigator.of(context).pop();
             },
             child: Stack(
               children: [
@@ -46,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 8,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop(); // Tutup dialog
+                      Navigator.of(context).pop();
                     },
                     child: Container(
                       padding: const EdgeInsets.all(4),
@@ -105,14 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
       clipBehavior: Clip.none,
       children: [
         SizedBox(
-          height: 100, // Atur tinggi background navigation bar
+          height: 100,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: 0,
             selectedItemColor: const Color(0xFF7743DB),
             unselectedItemColor: Colors.grey,
-            backgroundColor: Colors.white, // Warna background
-            elevation: 8, // Shadow/elevation
+            backgroundColor: Colors.white,
+            elevation: 8,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_rounded),
@@ -135,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
 
-        // Tombol scan melayang
         Positioned(
           bottom: 40,
           child: Column(
@@ -149,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.2),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
@@ -181,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _Scrollable_Contain(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 50), // Offset agar terlihat di atas
+      margin: const EdgeInsets.only(top: 50),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -190,9 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: ListView(
-        padding: EdgeInsets.zero, // hapus padding global
+        padding: EdgeInsets.zero,
         children: [
-          // Bagian atas (promo, current mission, redeem, dst) → tetap ada padding
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -226,6 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
+                              // ignore: deprecated_member_use
                               color: Colors.black.withOpacity(0.15),
                               blurRadius: 12,
                               spreadRadius: 0,
@@ -360,6 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
+                            // ignore: deprecated_member_use
                             color: Colors.black.withOpacity(0.15),
                             blurRadius: 2,
                             spreadRadius: 0,
@@ -466,7 +465,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                // Konten
                 Positioned.fill(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
