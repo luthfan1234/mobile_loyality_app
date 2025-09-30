@@ -31,83 +31,77 @@ class _PointScreenState extends State<PointScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white, // Set a white background color
-      ),
+      decoration: const BoxDecoration(),
       child: Scaffold(
-        body: Column(
+        body: Stack(
           children: [
-            Stack(
-              children: [
-                Container(
-                  height: 220,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/point.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            Container(
+              height: 220,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/point.png'),
+                  fit: BoxFit.cover,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 70, bottom: 53),
-                  child: _buildAppBar(context),
-                )
-                    .animate()
-                    .fadeIn(duration: 600.ms)
-                    .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
-              ],
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Material(
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: TabBar(
-                      controller: _tabController,
-                      tabs: const [
-                        Tab(text: 'Redeem Points'),
-                        Tab(text: 'Earn Points'),
-                      ],
-                      indicatorColor: const Color(
-                        0xFF7743DB,
-                      ),
-                      indicatorWeight: 3.0,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: const Color(
-                        0xFF7743DB,
-                      ),
-                      unselectedLabelColor: const Color(
-                        0xFF475467,
-                      ),
-                      labelStyle: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      unselectedLabelStyle: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        _buildRedeemPointsTab(),
-                        _buildEarnPointsTab(),
-                      ],
-                    ),
-                  ),
-                ],
               ),
-            )
+            ),
+            SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 53),
+                    child: _buildAppBar(context),
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 600.ms)
+                .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+            Positioned(
+                  top: 194,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Column(
+                    children: [
+                      Material(
+                        color: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                        ),
+                        child: TabBar(
+                          controller: _tabController,
+                          tabs: const [
+                            Tab(text: 'Redeem Points'),
+                            Tab(text: 'Earn Points'),
+                          ],
+                          indicatorColor: const Color(0xFF7743DB),
+                          indicatorWeight: 3.0,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          labelColor: const Color(0xFF7743DB),
+                          unselectedLabelColor: const Color(0xFF475467),
+                          labelStyle: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          unselectedLabelStyle: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            _buildRedeemPointsTab(),
+                            _buildEarnPointsTab(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
                 .animate()
                 .fadeIn(duration: 600.ms, delay: 200.ms)
                 .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
@@ -147,7 +141,7 @@ class _PointScreenState extends State<PointScreen>
                 ],
               ),
             ),
-            const SizedBox(width: 48), 
+            const SizedBox(width: 48),
           ],
         ),
         const SizedBox(height: 12),
@@ -214,8 +208,7 @@ class _PointScreenState extends State<PointScreen>
 
               // Right: Link
               GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Text(
                   'Point history',
                   style: GoogleFonts.inter(
@@ -314,31 +307,31 @@ class _PointScreenState extends State<PointScreen>
                   ),
                 ),
                 const Spacer(),
-                        OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Color(0xFF7743DB), width: 1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            minimumSize: const Size(143, 32),
-                          ),
-                          child: Text(
-                            'Start',
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF7743DB),
-                            ),
-                          ),
-                        ),
-                      ],
+                OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFF7743DB), width: 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    minimumSize: const Size(143, 32),
+                  ),
+                  child: Text(
+                    'Join Mission',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF7743DB),
                     ),
                   ),
-                )
-    .animate()
-    .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-    .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+                ),
+              ],
+            ),
+          ),
+        )
+        .animate()
+        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 
   Widget _buildRedeemPointsTab() {
@@ -475,7 +468,8 @@ class _PointScreenState extends State<PointScreen>
             ],
           ),
         )
-            .animate()
-            .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-            .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);  }
+        .animate()
+        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+  }
 }

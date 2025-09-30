@@ -86,8 +86,7 @@ class MembershipScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            height: 300,
+          Expanded(
             child: TabBarView(
               children: [
                 _buildSilverContent(),
