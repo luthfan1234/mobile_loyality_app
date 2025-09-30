@@ -33,21 +33,23 @@ class _PointScreenState extends State<PointScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/point.png'),
-            alignment: Alignment.topCenter,
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white, // Set a white background color
+        image: DecorationImage(
+          image: AssetImage('assets/images/point.png'),
+          alignment: Alignment.topCenter,
         ),
-        child:
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body:
             Padding(
                   padding: const EdgeInsets.only(top: 70, bottom: 53),
                   child: Column(
                     children: [
                       _buildAppBar(context),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 24),
                       Expanded(
                         child: Container(
                           width: double.infinity,
@@ -60,31 +62,40 @@ class _PointScreenState extends State<PointScreen>
                           ),
                           child: Column(
                             children: [
-                              TabBar(
-                                controller: _tabController,
-                                tabs: const [
-                                  Tab(text: 'Redeem Points'),
-                                  Tab(text: 'Earn Points'),
-                                ],
-                                indicatorColor: const Color(
-                                  0xFF7743DB,
-                                ), // Warna indicator
-                                indicatorWeight: 3.0, // Ketebalan indicator
-                                indicatorSize:
-                                    TabBarIndicatorSize.tab, // Ukuran indicator
-                                labelColor: const Color(
-                                  0xFF7743DB,
-                                ), // Warna teks aktif
-                                unselectedLabelColor: Color(
-                                  0xFF475467,
-                                ), // Warna teks tidak aktif
-                                labelStyle: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
+                              Material(
+                                color: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16),
+                                    topRight: Radius.circular(16),
+                                  ),
                                 ),
-                                unselectedLabelStyle: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                                child: TabBar(
+                                  controller: _tabController,
+                                  tabs: const [
+                                    Tab(text: 'Redeem Points'),
+                                    Tab(text: 'Earn Points'),
+                                  ],
+                                  indicatorColor: const Color(
+                                    0xFF7743DB,
+                                  ), // Warna indicator
+                                  indicatorWeight: 3.0, // Ketebalan indicator
+                                  indicatorSize: TabBarIndicatorSize
+                                      .tab, // Ukuran indicator
+                                  labelColor: const Color(
+                                    0xFF7743DB,
+                                  ), // Warna teks aktif
+                                  unselectedLabelColor: Color(
+                                    0xFF475467,
+                                  ), // Warna teks tidak aktif
+                                  labelStyle: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  unselectedLabelStyle: GoogleFonts.inter(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                               Expanded(
@@ -125,22 +136,25 @@ class _PointScreenState extends State<PointScreen>
               onPressed: () => Navigator.pop(context),
             ),
             Expanded(
-              child: Text(
-                'My Points',
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                ),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    'My Points',
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
             const SizedBox(width: 48), // supaya kiri & kanan balance
           ],
         ),
-
-        const SizedBox(height: 24),
+        const SizedBox(height: 4),
 
         // Row 2: Points + Link
         Padding(
