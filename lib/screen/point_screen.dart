@@ -151,94 +151,97 @@ class _PointScreenState extends State<PointScreen>
   }
 
   Widget _buildMissionCard(int index) {
-  final missions = [
-    "Social Media Engagement",
-    "Daily Streak",
-    "Invite Friends",
-    "Complete Profile",
-    "First Purchase",
-    "Write a Review",
-  ];
-  final points = [
-    "+500 points",
-    "+100 points",
-    "+1000 points",
-    "+200 points",
-    "+500 points",
-    "+150 points",
-  ];
+    final missions = [
+      "Social Media Engagement",
+      "Daily Streak",
+      "Invite Friends",
+      "Complete Profile",
+      "First Purchase",
+      "Write a Review",
+    ];
+    final points = [
+      "+500 points",
+      "+100 points",
+      "+1000 points",
+      "+200 points",
+      "+500 points",
+      "+150 points",
+    ];
 
-  return Container(
-    width: 169,
-    height: 166,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 6,
-          offset: const Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Color(0xFFFFF4E6),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              points[index],
-              style: GoogleFonts.inter(
-                color: Color(0xFFFCB351),
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                height: 1.5,
+    return Container(
+          width: 169,
+          height: 166,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
               ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFF4E6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    points[index],
+                    style: GoogleFonts.inter(
+                      color: Color(0xFFFCB351),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  missions[index],
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                const Spacer(),
+                OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFF7743DB), width: 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    minimumSize: const Size(143, 32),
+                  ),
+                  child: Text(
+                    "Join Mission",
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFF7743DB),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 12),
-          Text(
-            missions[index],
-            style: GoogleFonts.inter(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          const Spacer(),
-          OutlinedButton(
-            onPressed: () {},
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(
-                color: Color(0xFF7743DB),
-                width: 1,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              minimumSize: const Size(143, 32),
-            ),
-            child: Text(
-              "Join Mission",
-              style: GoogleFonts.inter(
-                color: const Color(0xFF7743DB),
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  ).animate().fadeIn(delay: (200 * (index + 1)).ms).slideY(begin: 0.3, end: 0);
-}
+        )
+        .animate()
+        .fadeIn(delay: (200 * (index + 1)).ms)
+        .slideY(begin: 0.3, end: 0);
+  }
 
   Widget _buildRedeemPointsTab() {
     return ListView(
@@ -351,7 +354,7 @@ class _PointScreenState extends State<PointScreen>
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: const Color(0xFF7743DB),
-                          width: 2,
+                          width: 1,
                         ),
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
