@@ -155,9 +155,10 @@ class _PointScreenState extends State<PointScreen>
             children: [
               // Left: Icon + "1.200 Points"
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset('assets/icons/point.png', width: 32, height: 32),
-                  const SizedBox(width: 8),
+                  Image.asset('assets/icons/point.png', width: 48, height: 48),
+                  const SizedBox(width: 4),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
