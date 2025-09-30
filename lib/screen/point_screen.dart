@@ -315,7 +315,7 @@ class _PointScreenState extends State<PointScreen>
                     topRight: Radius.circular(12),
                   ),
                   child: Image.asset(
-                    'assets/images/discount${(index % 2) + 1}.png',
+                    'assets/images/discount${(index % 3) + 1}.png',
                     height: 120,
                     fit: BoxFit.cover,
                   ),
