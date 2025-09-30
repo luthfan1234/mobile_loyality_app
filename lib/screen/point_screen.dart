@@ -129,7 +129,7 @@ class _PointScreenState extends State<PointScreen> {
                     itemCount: 2,
                     itemBuilder: (context, index) => Container(
                       width: 170.5,
-                      height: 196,
+                      height: 234,
                       margin: EdgeInsets.only(
                         left: index == 0 ? 20 : 0,
                         right: 16,
