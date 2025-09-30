@@ -128,7 +128,7 @@ class _PointScreenState extends State<PointScreen> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 2,
                     itemBuilder: (context, index) => Container(
-                      width: 132,
+                      width: 170.5,
                       height: 196,
                       margin: EdgeInsets.only(
                         left: index == 0 ? 20 : 0,
