@@ -62,7 +62,7 @@ class _PointScreenState extends State<PointScreen> {
         ),
         Expanded(
           child: Text(
-            'My Points',
+            'My Point',
             style: GoogleFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w600,
