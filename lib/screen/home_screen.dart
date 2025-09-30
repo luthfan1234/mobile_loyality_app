@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/screen/membership_screen.dart';
 import 'package:flutter_application_2/screen/point_screen.dart';
+import 'package:flutter_application_2/screen/reward_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'daily_checkin_screen.dart';
 import '../utils/page_route_animation.dart';
+import 'mission_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,9 +17,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  late PageController _pageController;
+
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(initialPage: _selectedIndex);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showWelcomeDialog(context);
     });
@@ -30,50 +37,49 @@ class _HomeScreenState extends State<HomeScreen> {
       // ignore: deprecated_member_use
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: const Duration(milliseconds: 400),
-      pageBuilder:
-          (
-            BuildContext buildContext,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) {
-            return Dialog(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Image.asset(
-                        'assets/images/popup.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          child: const Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+      pageBuilder: (
+        BuildContext buildContext,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(
+                    'assets/images/popup.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-            );
-          },
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return ScaleTransition(
           scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
@@ -86,31 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/home.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child:
-            Column(
-                  children: [
-                    const _HeaderSection(),
-                    const SizedBox(height: 24),
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          const _Link_Group(),
-                          _Scrollable_Contain(context),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: const [
+          HomeScreenBody(),
+          RewardScreen(),
+          SizedBox.shrink(),
+          MissionScreen(),
+          ProfileScreen(),
+        ],
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -125,11 +120,18 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 100,
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            currentIndex: 0,
+            currentIndex: _selectedIndex,
             selectedItemColor: const Color(0xFF7743DB),
             unselectedItemColor: Colors.grey,
             backgroundColor: Colors.white,
             elevation: 8,
+            onTap: (index) {
+              if (index == 2) {
+                // Handle scan button tap
+              } else {
+                _pageController.jumpToPage(index);
+              }
+            },
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_rounded),
@@ -191,6 +193,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class HomeScreenBody extends StatelessWidget {
+  const HomeScreenBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/home.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Column(
+        children: [
+          const _HeaderSection(),
+          const SizedBox(height: 24),
+          Expanded(
+            child: Stack(
+              children: [
+                const _Link_Group(),
+                _Scrollable_Contain(context),
+              ],
+            ),
+          ),
+        ],
+      ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(
+          begin: 0.3, end: 0, curve: Curves.easeOutCubic),
     );
   }
 
@@ -805,7 +838,7 @@ class _Link_Group extends StatelessWidget {
               ),
             ),
 
-            // Voucher section
+            // Vouchers section
             Row(
               children: [
                 SizedBox(
