@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/screen/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'daily_checkin.dart';
+import 'daily_checkin_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,10 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showWelcomeDialog(BuildContext context) {
-    showDialog(
+    showGeneralDialog(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) {
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionDuration: const Duration(milliseconds: 400),
+      pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {
         return Dialog(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -60,6 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return ScaleTransition(
+          scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+          child: child,
         );
       },
     );
@@ -637,8 +647,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-
-          //NAVBAR
         ],
       ),
     );
@@ -669,28 +677,41 @@ class _Link_Group extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Gold section
-            Row(
-              children: [
-                SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: Image.asset(
-                    'assets/icons/tier.png',
-                    fit: BoxFit.contain,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MembershipScreen()),
+                );
+              },
+
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Image.asset(
+                      'assets/icons/tier.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  'Gold',
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(width: 8),
+                  Text(
+                    'Gold',
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(
+                    Icons.chevron_right,
                     color: Colors.white,
+                    size: 20,
                   ),
-                ),
-                const SizedBox(width: 4),
-                const Icon(Icons.chevron_right, color: Colors.white, size: 20),
-              ],
+                ],
+              ),
             ),
 
             // Vertical divider
