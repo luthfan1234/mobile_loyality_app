@@ -111,38 +111,109 @@ class _PointScreenState extends State<PointScreen>
   }
 
   Widget _buildAppBar(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        IconButton(
-          icon: const Icon(Icons.arrow_back),
-          iconSize: 24,
-          color: Colors.white,
-          onPressed: () => Navigator.pop(context), // Fixed navigation
-        ),
-        Expanded(
-          child: Text(
-            'My Points',
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+        // Row 1: AppBar
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              iconSize: 24,
               color: Colors.white,
-              decoration: TextDecoration.none,
+              onPressed: () => Navigator.pop(context),
             ),
-            textAlign: TextAlign.center,
-          ),
+            Expanded(
+              child: Text(
+                'My Points',
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  decoration: TextDecoration.none,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(width: 48), // supaya kiri & kanan balance
+          ],
         ),
-        const SizedBox(width: 48),
-        Image.asset('assets/icons/point.png', width: 24, height: 24),
-        const SizedBox(width: 8),
-        Text(
-          '0',
-          style: GoogleFonts.inter(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            decoration: TextDecoration.none,
-          ),
-          textAlign: TextAlign.center,
+
+        const SizedBox(height: 24),
+
+        // Row 2: Points + Link
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Left: Icon + "1.200 Points"
+            Row(
+              children: [
+                Image.asset('assets/icons/point.png', width: 32, height: 32),
+                const SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '1.200',
+                          style: GoogleFonts.inter(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Points',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.info_outline,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+
+                    // Row 3: Expiring text
+                    Text(
+                      '200 points expiring on 31/12/2023',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            // Right: Link
+            GestureDetector(
+              onTap: () {
+                // TODO: Navigate to history page
+              },
+              child: Text(
+                'Point history',
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
