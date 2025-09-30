@@ -73,7 +73,7 @@ class _PointScreenState extends State<PointScreen>
                                 labelColor: const Color(
                                   0xFF7743DB,
                                 ), 
-                                unselectedLabelColor: Color(
+                                unselectedLabelColor: const Color(
                                   0xFF475467,
                                 ), 
                                 labelStyle: GoogleFonts.inter(
@@ -102,8 +102,8 @@ class _PointScreenState extends State<PointScreen>
                   ),
                 )
                 .animate()
-                .fadeIn(duration: 800.ms, delay: 300.ms)
-                .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+                .fadeIn(duration: 600.ms, delay: 200.ms)
+                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
       ),
     );
   }
@@ -282,13 +282,13 @@ class _PointScreenState extends State<PointScreen>
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0xFFFFF4E6),
+                    color: const Color(0xFFFFF4E6),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     points[index],
                     style: GoogleFonts.inter(
-                      color: Color(0xFFFCB351),
+                      color: const Color(0xFFFCB351),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       height: 1.5,
@@ -328,8 +328,8 @@ class _PointScreenState extends State<PointScreen>
           ),
         )
         .animate()
-        .fadeIn(delay: (200 * (index + 1)).ms)
-        .slideY(begin: 0.3, end: 0);
+        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
   }
 
   Widget _buildRedeemPointsTab() {
@@ -467,7 +467,7 @@ class _PointScreenState extends State<PointScreen>
           ),
         )
         .animate()
-        .fadeIn(delay: (200 * (index + 1)).ms)
-        .slideY(begin: 0.3, end: 0);
+        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
   }
 }

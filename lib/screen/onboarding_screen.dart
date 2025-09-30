@@ -49,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const Spacer(flex: 3),
                 const _WelcomeSection()
                     .animate()
-                    .fadeIn(duration: 800.ms, delay: 300.ms)
+                    .fadeIn(duration: 600.ms, delay: 200.ms)
                     .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
                 const SizedBox(height: 56),
                 _ButtonSection(
@@ -57,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onGuestPressed: _continueAsGuest,
                 )
                     .animate()
-                    .fadeIn(duration: 800.ms, delay: 500.ms)
+                    .fadeIn(duration: 600.ms, delay: 400.ms)
                     .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
                 const Spacer(),
               ],

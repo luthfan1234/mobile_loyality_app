@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:flutter_animate/flutter_animate.dart';
 
 class MembershipScreen extends StatelessWidget {
@@ -10,41 +9,38 @@ class MembershipScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return Scaffold(
-      body: Animate(
-        effects: const [FadeEffect(), SlideEffect(curve: Curves.easeIn)],
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Image.asset('assets/images/membership.png'),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 70, bottom: 53),
-                        child: Column(
-                          children: [
-                            _buildAppBar(context),
-                            const SizedBox(height: 16),
-                            _buildDailyCheckinCard(),
-                          ],
-                        ),
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Image.asset('assets/images/membership.png'),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 70, bottom: 53),
+                      child: Column(
+                        children: [
+                          _buildAppBar(context),
+                          const SizedBox(height: 16),
+                          _buildDailyCheckinCard(),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              )
-                  .animate()
-                  .fadeIn(duration: 600.ms)
-                  .slideY(begin: -0.1, end: 0, curve: Curves.easeOut),
-              _buildTabBar(),
-            ],
-          ),
+                ),
+              ],
+            )
+                .animate()
+                .fadeIn(duration: 600.ms, delay: 200.ms)
+                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+            _buildTabBar(),
+          ],
         ),
       ),
     );
@@ -145,7 +141,7 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 200.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -172,7 +168,7 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 300.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 350.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -199,10 +195,10 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 400.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 500.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
         ],
       ),
-    ).animate().fadeIn(duration: 300.ms);
+    ).animate().fadeIn(duration: 500.ms);
   }
 
   Widget _buildGoldContent() {
@@ -224,15 +220,12 @@ class MembershipScreen extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Ikon / badge
                 Image.asset(
                   'assets/icons/membership1.png',
                   width: 48,
                   height: 48,
                 ),
                 const SizedBox(width: 16),
-
-                // Text Gold dan Points
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -262,21 +255,18 @@ class MembershipScreen extends StatelessWidget {
               ],
             )
                 .animate()
-                .fadeIn(delay: 200.ms)
-                .slideX(begin: 0.2, curve: Curves.easeOut),
+                .fadeIn(duration: 500.ms, delay: 200.ms)
+                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
             const SizedBox(height: 24),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Ikon / badge
                 Image.asset(
                   'assets/icons/membership2.png',
                   width: 48,
                   height: 48,
                 ),
                 const SizedBox(width: 16),
-
-                // Text Gold dan Points
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -306,21 +296,18 @@ class MembershipScreen extends StatelessWidget {
               ],
             )
                 .animate()
-                .fadeIn(delay: 300.ms)
-                .slideX(begin: 0.2, curve: Curves.easeOut),
+                .fadeIn(duration: 500.ms, delay: 350.ms)
+                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
             const SizedBox(height: 24),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Ikon / badge
                 Image.asset(
                   'assets/icons/membership3.png',
                   width: 48,
                   height: 48,
                 ),
                 const SizedBox(width: 16),
-
-                // Text Gold dan Points
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -350,12 +337,12 @@ class MembershipScreen extends StatelessWidget {
               ],
             )
                 .animate()
-                .fadeIn(delay: 400.ms)
-                .slideX(begin: 0.2, curve: Curves.easeOut),
+                .fadeIn(duration: 500.ms, delay: 500.ms)
+                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
           ],
         ),
       ),
-    ).animate().fadeIn(duration: 300.ms);
+    ).animate().fadeIn(duration: 500.ms);
   }
 
   Widget _buildPlatinumContent() {
@@ -398,7 +385,7 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 200.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -425,7 +412,7 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 300.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 350.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -452,10 +439,10 @@ class MembershipScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ).animate().fadeIn(delay: 400.ms).slideX(begin: 0.2, curve: Curves.easeOut),
+          ).animate().fadeIn(duration: 500.ms, delay: 500.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
         ],
       ),
-    ).animate().fadeIn(duration: 300.ms);
+    ).animate().fadeIn(duration: 500.ms);
   }
 
   Widget _buildAppBar(BuildContext context) {
@@ -513,10 +500,7 @@ class MembershipScreen extends StatelessWidget {
           ],
         ),
       ),
-    )
-        .animate()
-        .fadeIn(duration: 600.ms)
-        .slideY(begin: 0.2, end: 0, curve: Curves.easeOut);
+    );
   }
 
   Widget _buildCardHeader() {

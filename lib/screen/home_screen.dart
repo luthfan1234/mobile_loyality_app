@@ -104,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 )
                 .animate()
-                .fadeIn(duration: 800.ms, delay: 300.ms)
-                .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+                .fadeIn(duration: 600.ms, delay: 200.ms)
+                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -443,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                    ).animate().fadeIn(delay: (300 * (index + 1)).ms).slideX(),
+                    ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -646,8 +646,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       )
                                       .animate()
-                                      .fadeIn(delay: (300 * (index + 1)).ms)
-                                      .slideX(),
+                                      .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+                                      .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
                             ),
                           ),
                         ),
