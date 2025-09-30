@@ -132,6 +132,18 @@ class _PointScreenState extends State<PointScreen>
           ),
         ),
         const SizedBox(width: 48),
+        Image.asset('assets/icons/point.png', width: 24, height: 24),
+        const SizedBox(width: 8),
+        Text(
+          '0',
+          style: GoogleFonts.inter(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+            decoration: TextDecoration.none,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ],
     );
   }
