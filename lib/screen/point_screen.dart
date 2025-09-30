@@ -180,69 +180,96 @@ class _PointScreenState extends State<PointScreen>
   Widget _buildDiscountCard(int index) {
     final discounts = ['10%', '25%', '30%', '15%', '20%', '35%'];
     final points = ['1000', '2500', '3000', '1500', '2000', '3500'];
-    
+
     return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            blurRadius: 2,
-            spreadRadius: 0,
-            offset: const Offset(1, 0),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+          height: 234,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 2,
+                spreadRadius: 0,
+                offset: const Offset(1, 0),
               ),
-              child: Image.asset(
-                'assets/images/discount${(index % 2) + 1}.png',
-                height: 120,
-                fit: BoxFit.cover,
-              ),
-            ),
+            ],
           ),
-          Positioned(
-            top: 130,
-            left: 12,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${discounts[index]} discount \nvoucher',
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                    height: 1.3,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  child: Image.asset(
+                    'assets/images/discount${(index % 2) + 1}.png',
+                    height: 120,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  '${points[index]} points',
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFCB351),
-                    height: 1.3,
-                  ),
+              ),
+              Positioned(
+                top: 130,
+                left: 12,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${discounts[index]} discount \nvoucher',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        height: 1.3,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${points[index]} points',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFFFCB351),
+                        height: 1.3,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      width: 160,
+                      height: 32,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color(0xFFFCB351),
+                          width: 2,
+                        ),
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Redeem Now',
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ).animate().fadeIn(delay: (200 * (index + 1)).ms).slideY(begin: 0.3, end: 0);
+        )
+        .animate()
+        .fadeIn(delay: (200 * (index + 1)).ms)
+        .slideY(begin: 0.3, end: 0);
   }
 }
