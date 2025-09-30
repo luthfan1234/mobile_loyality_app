@@ -123,13 +123,13 @@ class _PointScreenState extends State<PointScreen> {
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
-                  height: 204,
+                  height: 228,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 2,
                     itemBuilder: (context, index) => Container(
                       width: 170.5,
-                      height: 234,
+                      height: 240,
                       margin: EdgeInsets.only(
                         left: index == 0 ? 20 : 0,
                         right: 16,
@@ -165,7 +165,7 @@ class _PointScreenState extends State<PointScreen> {
                             ),
                           ),
                           Positioned(
-                            top: 110,
+                            top: 140,
                             left: 12,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
