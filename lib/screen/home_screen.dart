@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      // ignore: deprecated_member_use
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: const Duration(milliseconds: 400),
       pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {

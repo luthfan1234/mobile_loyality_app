@@ -492,6 +492,7 @@ class MembershipScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -581,10 +582,11 @@ class MembershipScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(60),
               ),
+              // ignore: deprecated_member_use
               shadowColor: Colors.black.withOpacity(0.1),
-              elevation: 4, // Tambahkan ini untuk mengatur shadow
+              elevation: 4, 
               minimumSize: const Size(110, 29),
-            ), // Tambahkan ini untuk mengatur ukuran button
+            ),
             child: Text(
               'Redeem points',
               style: GoogleFonts.inter(
@@ -629,6 +631,7 @@ class MembershipScreen extends StatelessWidget {
           height: 6,
           child: LinearProgressIndicator(
             value: 0.5,
+            // ignore: deprecated_member_use
             backgroundColor: Colors.white.withOpacity(0.2),
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),

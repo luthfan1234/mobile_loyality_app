@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/screen/membership_screen.dart';
-import 'package:flutter_application_2/screen/point_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../utils/page_route_animation.dart';
 
 class PointScreen extends StatefulWidget {
   const PointScreen({super.key});
@@ -69,16 +66,16 @@ class _PointScreenState extends State<PointScreen>
                                 ],
                                 indicatorColor: const Color(
                                   0xFF7743DB,
-                                ), // Warna indicator
-                                indicatorWeight: 3.0, // Ketebalan indicator
+                                ),
+                                indicatorWeight: 3.0, 
                                 indicatorSize:
-                                    TabBarIndicatorSize.tab, // Ukuran indicator
+                                    TabBarIndicatorSize.tab, 
                                 labelColor: const Color(
                                   0xFF7743DB,
-                                ), // Warna teks aktif
+                                ), 
                                 unselectedLabelColor: Color(
                                   0xFF475467,
-                                ), // Warna teks tidak aktif
+                                ), 
                                 labelStyle: GoogleFonts.inter(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -141,7 +138,7 @@ class _PointScreenState extends State<PointScreen>
                 ],
               ),
             ),
-            const SizedBox(width: 48), // supaya kiri & kanan balance
+            const SizedBox(width: 48), 
           ],
         ),
         const SizedBox(height: 12),
@@ -197,6 +194,7 @@ class _PointScreenState extends State<PointScreen>
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
+                          // ignore: deprecated_member_use
                           color: Colors.white.withOpacity(0.9),
                         ),
                       ),
@@ -208,7 +206,6 @@ class _PointScreenState extends State<PointScreen>
               // Right: Link
               GestureDetector(
                 onTap: () {
-                  // TODO: Navigate to history page
                 },
                 child: Text(
                   'Point history',
@@ -267,6 +264,7 @@ class _PointScreenState extends State<PointScreen>
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 6,
                 offset: const Offset(0, 3),
@@ -387,6 +385,7 @@ class _PointScreenState extends State<PointScreen>
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.15),
                 blurRadius: 2,
                 spreadRadius: 0,

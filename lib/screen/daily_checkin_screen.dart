@@ -188,7 +188,9 @@ class _DailyCheckinState extends State<DailyCheckin> {
       containerColor = Colors.white;
       borderColor = Colors.white;
     } else {
+      // ignore: deprecated_member_use
       containerColor = const Color(0xFFFFE5C1).withOpacity(0.5);
+      // ignore: deprecated_member_use
       borderColor = const Color(0xFFFFE5C1).withOpacity(0.5);
     }
 
@@ -312,6 +314,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
+                                  // ignore: deprecated_member_use
                                   color: Colors.black.withOpacity(0.1),
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
@@ -419,6 +422,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
+                                  // ignore: deprecated_member_use
                                   color: Colors.black.withOpacity(0.1),
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
@@ -551,6 +555,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
+                            // ignore: deprecated_member_use
                             color: Colors.black.withOpacity(0.1),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
