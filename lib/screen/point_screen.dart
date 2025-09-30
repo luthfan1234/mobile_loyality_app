@@ -126,7 +126,7 @@ class _PointScreenState extends State<PointScreen> {
                   height: 204,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 3,
+                    itemCount: 2,
                     itemBuilder: (context, index) => Container(
                       width: 132,
                       height: 196,
