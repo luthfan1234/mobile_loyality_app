@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_animate/flutter_animate.dart';
 
 class MembershipScreen extends StatelessWidget {
   const MembershipScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -20,15 +21,17 @@ class MembershipScreen extends StatelessWidget {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 70, bottom: 53),
-                        child: Column(
-                          children: [
-                            _buildAppBar(context),
-                            const SizedBox(height: 16),
-                            _buildDailyCheckinCard(),
-                            const SizedBox(height: 16),
-                          ],
+                      bottom: 0,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 70, bottom: 53),
+                          child: Column(
+                            children: [
+                              _buildAppBar(context),
+                              const SizedBox(height: 16),
+                              _buildDailyCheckinCard(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -37,8 +40,244 @@ class MembershipScreen extends StatelessWidget {
                 .animate()
                 .fadeIn(duration: 600.ms)
                 .slideY(begin: -0.1, end: 0, curve: Curves.easeOut),
+            _buildTabBar(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTabBar() {
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 1, // Start with Gold tab selected
+      child: Column(
+        children: [
+          Container(
+            height: 40,
+            width: 380,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TabBar(
+              indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(color: Color(0xFFD69400), width: 3),
+                insets: EdgeInsets.symmetric(horizontal: 20),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: Color(0xFFD69400),
+              unselectedLabelColor: Color(0xFF475467),
+              labelStyle: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                height: 1.5,
+              ),
+              unselectedLabelStyle: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                height: 1.5,
+              ),
+              dividerColor: Colors.transparent,
+              tabs: [
+                Tab(text: 'Silver'),
+                Tab(text: 'Gold'),
+                Tab(text: 'Platinum'),
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          SizedBox(
+            height: 300,
+            child: TabBarView(
+              children: [
+                _buildSilverContent(),
+                _buildGoldContent(),
+                _buildPlatinumContent(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSilverContent() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Text(
+            'Silver Membership Benefits',
+            style: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF475467),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGoldContent() {
+    return Container(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Member Benefits',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Ikon / badge
+                Image.asset(
+                  'assets/icons/membership1.png',
+                  width: 48,
+                  height: 48,
+                ),
+                const SizedBox(width: 16),
+
+                // Text Gold dan Points
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Birthday Treat',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Receive a personalized 15% discount code or a \nfree gift during your birthday month.',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Ikon / badge
+                Image.asset(
+                  'assets/icons/membership2.png',
+                  width: 48,
+                  height: 48,
+                ),
+                const SizedBox(width: 16),
+
+                // Text Gold dan Points
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Increased Earning Rate',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Unlock bonus points challenges for additional \nlearning opportunities.',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Ikon / badge
+                Image.asset(
+                  'assets/icons/membership3.png',
+                  width: 48,
+                  height: 48,
+                ),
+                const SizedBox(width: 16),
+
+                // Text Gold dan Points
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tier Upgrade Bonus',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Enjoy priority email support with a guaranteed \nresponse within 24 hours.',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlatinumContent() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          Text(
+            'Platinum Membership Benefits',
+            style: GoogleFonts.inter(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF475467),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -90,15 +329,99 @@ class MembershipScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [_buildCardFooter(), const SizedBox(height: 10)],
+              children: [
+                _buildCardHeader(),
+                const SizedBox(height: 10),
+                _buildCardFooter(),
+              ],
             ),
           ),
         )
         .animate()
         .fadeIn(duration: 600.ms)
         .slideY(begin: 0.2, end: 0, curve: Curves.easeOut);
+  }
+
+  Widget _buildCardHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Ikon / badge
+          Image.asset(
+            'assets/icons/tier_membership2.png',
+            width: 48,
+            height: 48,
+          ),
+          const SizedBox(width: 12),
+
+          // Text Gold dan Points
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Gold',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Text(
+                      '1.200 Points',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Button
+          ElevatedButton(
+            onPressed: () {
+              // Add your button action here
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFFDCA426),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(60),
+              ),
+              shadowColor: Colors.black.withOpacity(0.1),
+              elevation: 4, // Tambahkan ini untuk mengatur shadow
+              minimumSize: const Size(110, 29),
+            ), // Tambahkan ini untuk mengatur ukuran button
+            child: Text(
+              'Redeem points',
+              style: GoogleFonts.inter(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+                color: Color(0xFFFFF3D1),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildCardFooter() {

@@ -3,6 +3,7 @@ import 'package:flutter_application_2/screen/membership_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'daily_checkin_screen.dart';
+import '../utils/page_route_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -681,7 +682,7 @@ class _Link_Group extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MembershipScreen()),
+                  CustomPageRoute(child: const MembershipScreen()),
                 );
               },
 
@@ -730,7 +731,7 @@ class _Link_Group extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DailyCheckin()),
+                  CustomPageRoute(child: const DailyCheckin()),
                 );
               },
               child: Row(
