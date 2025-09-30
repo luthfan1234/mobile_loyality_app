@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_2/screen/membership_screen.dart';
 import 'package:flutter_application_2/screen/point_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +17,7 @@ class _PointScreenState extends State<PointScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
@@ -23,25 +25,55 @@ class _PointScreenState extends State<PointScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/home.png'),
-            fit: BoxFit.cover,
+        decoration: BoxDecoration(
+          image: const DecorationImage(
+            image: AssetImage('assets/images/point.png'),
+            alignment: Alignment.topCenter,
           ),
         ),
         child:
-            Column(
-                  children: [
-                    const SizedBox(height: 24),
-                    Expanded(
-                      child: Stack(children: [_Scrollable_Contain(context)]),
-                    ),
-                  ],
+            Padding(
+                  padding: const EdgeInsets.only(top: 70, bottom: 53),
+                  child: Column(
+                    children: [
+                      _buildAppBar(context),
+                      const SizedBox(height: 24),
+                      Expanded(
+                        child: Stack(children: [_Scrollable_Contain(context)]),
+                      ),
+                    ],
+                  ),
                 )
                 .animate()
                 .fadeIn(duration: 800.ms, delay: 300.ms)
                 .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
       ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.arrow_back),
+          iconSize: 24,
+          color: Colors.white,
+          onPressed: () => Navigator.pop(context), // Fixed navigation
+        ),
+        Expanded(
+          child: Text(
+            'My Points',
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              decoration: TextDecoration.none,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(width: 48),
+      ],
     );
   }
 
