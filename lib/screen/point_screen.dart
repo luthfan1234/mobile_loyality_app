@@ -245,7 +245,7 @@ class _PointScreenState extends State<PointScreen>
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: const Color(0xFFFCB351),
+                          color: const Color(0xFF7743DB),
                           width: 2,
                         ),
                         color: Colors.transparent,
@@ -255,9 +255,9 @@ class _PointScreenState extends State<PointScreen>
                         child: Text(
                           'Redeem Now',
                           style: GoogleFonts.inter(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF7743DB),
                           ),
                         ),
                       ),
