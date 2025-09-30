@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'daily_checkin.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -704,28 +705,40 @@ class _Link_Group extends StatelessWidget {
             ),
 
             // Coins section
-            Row(
-              children: [
-                SizedBox(
-                  width: 28,
-                  height: 28,
-                  child: Image.asset(
-                    'assets/icons/point.png',
-                    fit: BoxFit.contain,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DailyCheckin()),
+                );
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 28,
+                    height: 28,
+                    child: Image.asset(
+                      'assets/icons/point.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '1.200',
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(width: 8),
+                  Text(
+                    '1.200',
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(
+                    Icons.chevron_right,
                     color: Colors.white,
+                    size: 20,
                   ),
-                ),
-                const SizedBox(width: 4),
-                const Icon(Icons.chevron_right, color: Colors.white, size: 20),
-              ],
+                ],
+              ),
             ),
 
             // Vertical divider
