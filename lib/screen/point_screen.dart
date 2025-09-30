@@ -103,7 +103,7 @@ class _PointScreenState extends State<PointScreen>
                 )
                 .animate()
                 .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
       ),
     );
   }
@@ -305,31 +305,31 @@ class _PointScreenState extends State<PointScreen>
                   ),
                 ),
                 const Spacer(),
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFF7743DB), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Color(0xFF7743DB), width: 1),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            minimumSize: const Size(143, 32),
+                          ),
+                          child: Text(
+                            'Start',
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF7743DB),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    minimumSize: const Size(143, 32),
                   ),
-                  child: Text(
-                    "Join Mission",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFF7743DB),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-        .animate()
-        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-        .slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
+                )
+    .animate()
+    .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+    .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 
   Widget _buildRedeemPointsTab() {
@@ -466,8 +466,7 @@ class _PointScreenState extends State<PointScreen>
             ],
           ),
         )
-        .animate()
-        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-        .slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
-  }
+            .animate()
+            .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+            .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);  }
 }

@@ -49,8 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const Spacer(flex: 3),
                 const _WelcomeSection()
                     .animate()
-                    .fadeIn(duration: 600.ms, delay: 200.ms)
-                    .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
                 const SizedBox(height: 56),
                 _ButtonSection(
                   onLoginPressed: _navigateToHome,
@@ -58,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 )
                     .animate()
                     .fadeIn(duration: 600.ms, delay: 400.ms)
-                    .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
                 const Spacer(),
               ],
             ),

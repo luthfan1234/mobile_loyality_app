@@ -30,45 +30,50 @@ class _HomeScreenState extends State<HomeScreen> {
       // ignore: deprecated_member_use
       barrierColor: Colors.black.withOpacity(0.5),
       transitionDuration: const Duration(milliseconds: 400),
-      pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.asset(
-                    'assets/images/popup.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 40,
+      pageBuilder:
+          (
+            BuildContext buildContext,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return Dialog(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Image.asset(
+                        'assets/images/popup.png',
+                        fit: BoxFit.contain,
                       ),
                     ),
-                  ),
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+            );
+          },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return ScaleTransition(
           scale: CurvedAnimation(parent: animation, curve: Curves.easeOut),
@@ -105,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
                 .animate()
                 .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
@@ -368,82 +373,91 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 3,
-                    itemBuilder: (context, index) => Container(
-                      width: 132,
-                      height: 196,
-                      margin: EdgeInsets.only(
-                        left: index == 0 ? 20 : 0,
-                        right: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            // ignore: deprecated_member_use
-                            color: Colors.black.withOpacity(0.15),
-                            blurRadius: 2,
-                            spreadRadius: 0,
-                            offset: const Offset(1, 0),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
+                    itemBuilder: (context, index) =>
+                        Container(
+                              width: 132,
+                              height: 196,
+                              margin: EdgeInsets.only(
+                                left: index == 0 ? 20 : 0,
+                                right: 16,
                               ),
-                              child: Image.asset(
-                                'assets/images/discount${index + 1}.png',
-                                fit: BoxFit.cover,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    // ignore: deprecated_member_use
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 2,
+                                    spreadRadius: 0,
+                                    offset: const Offset(1, 0),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 110,
-                            left: 12,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  index == 0
-                                      ? '10% discount \nvoucher'
-                                      : index == 1
-                                      ? '25% discount \nvoucher'
-                                      : '30% discount \nvoucher',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    height: 1.5,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/discount${index + 1}.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  index == 0
-                                      ? '1000 points'
-                                      : index == 1
-                                      ? '2500 points'
-                                      : '3000 points',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFFFCB351),
-                                    height: 1.5,
+                                  Positioned(
+                                    top: 110,
+                                    left: 12,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          index == 0
+                                              ? '10% discount \nvoucher'
+                                              : index == 1
+                                              ? '25% discount \nvoucher'
+                                              : '30% discount \nvoucher',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            height: 1.5,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          index == 0
+                                              ? '1000 points'
+                                              : index == 1
+                                              ? '2500 points'
+                                              : '3000 points',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFFFCB351),
+                                            height: 1.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            )
+                            .animate()
+                            .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+                            .slideX(
+                              begin: 0.5,
+                              end: 0,
+                              curve: Curves.easeOutCubic,
                             ),
-                          ),
-                        ],
-                      ),
-                    ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -646,8 +660,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       )
                                       .animate()
-                                      .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-                                      .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+                                      .fadeIn(
+                                        duration: 500.ms,
+                                        delay: (150 * index).ms,
+                                      )
+                                      .slideX(
+                                        begin: 0.5,
+                                        end: 0,
+                                        curve: Curves.easeOutCubic,
+                                      ),
                             ),
                           ),
                         ),

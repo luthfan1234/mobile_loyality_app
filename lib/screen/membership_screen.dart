@@ -17,28 +17,28 @@ class MembershipScreen extends StatelessWidget {
               children: [
                 Image.asset('assets/images/membership.png'),
                 Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 70, bottom: 53),
-                      child: Column(
-                        children: [
-                          _buildAppBar(context),
-                          const SizedBox(height: 16),
-                          _buildDailyCheckinCard(),
-                        ],
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 70, bottom: 53),
+                          child: Column(
+                            children: [
+                              _buildAppBar(context),
+                              const SizedBox(height: 16),
+                              _buildDailyCheckinCard(),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                    )
+                    .animate()
+                    .fadeIn(duration: 600.ms, delay: 200.ms)
+                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
               ],
-            )
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+            ),
             _buildTabBar(),
           ],
         ),
@@ -117,230 +117,255 @@ class MembershipScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Row(
-            children: [
-              Image.asset('assets/icons/membership1.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Birthday Treat',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership1.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Receive a 10% discount code during your \nbirthday month.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Birthday Treat',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Receive a 10% discount code during your \nbirthday month.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 200.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 200.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
           const SizedBox(height: 24),
           Row(
-            children: [
-              Image.asset('assets/icons/membership2.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Standard Earning Rate',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership2.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Earn points for every purchase and activity.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Standard Earning Rate',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Earn points for every purchase and activity.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 350.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 350.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
           const SizedBox(height: 24),
           Row(
-            children: [
-              Image.asset('assets/icons/membership3.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Community Access',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership3.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Join our community forum and connect with \nother members.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Community Access',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Join our community forum and connect with \nother members.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 500.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 500.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
         ],
       ),
     ).animate().fadeIn(duration: 500.ms);
   }
 
   Widget _buildGoldContent() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Member Benefits',
-              style: GoogleFonts.inter(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Member Benefits',
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/icons/membership1.png',
-                  width: 48,
-                  height: 48,
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Birthday Treat',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.5,
+          ),
+          const SizedBox(height: 16),
+          Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/icons/membership1.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Birthday Treat',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.5,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Receive a personalized 15% discount code or a \nfree gift during your birthday month.',
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.4,
+                      const SizedBox(height: 4),
+                      Text(
+                        'Receive a personalized 15% discount code or a \nfree gift during your birthday month.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.4,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-                .animate()
-                .fadeIn(duration: 500.ms, delay: 200.ms)
-                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/icons/membership2.png',
-                  width: 48,
-                  height: 48,
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Increased Earning Rate',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.5,
+                    ],
+                  ),
+                ],
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 200.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+          const SizedBox(height: 24),
+          Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/icons/membership2.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Increased Earning Rate',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.5,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Unlock bonus points challenges for additional \nlearning opportunities.',
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.4,
+                      const SizedBox(height: 4),
+                      Text(
+                        'Unlock bonus points challenges for additional \nlearning opportunities.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.4,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-                .animate()
-                .fadeIn(duration: 500.ms, delay: 350.ms)
-                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/icons/membership3.png',
-                  width: 48,
-                  height: 48,
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tier Upgrade Bonus',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.5,
+                    ],
+                  ),
+                ],
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 350.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+          const SizedBox(height: 24),
+          Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/icons/membership3.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tier Upgrade Bonus',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.5,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Enjoy priority email support with a guaranteed \nresponse within 24 hours.',
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        decoration: TextDecoration.none,
-                        height: 1.4,
+                      const SizedBox(height: 4),
+                      Text(
+                        'Enjoy priority email support with a guaranteed \nresponse within 24 hours.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          decoration: TextDecoration.none,
+                          height: 1.4,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-                .animate()
-                .fadeIn(duration: 500.ms, delay: 500.ms)
-                .slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
-          ],
-        ),
+                    ],
+                  ),
+                ],
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 500.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
+        ],
       ),
     ).animate().fadeIn(duration: 500.ms);
   }
@@ -361,85 +386,112 @@ class MembershipScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Row(
-            children: [
-              Image.asset('assets/icons/membership1.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Premium Birthday Gift',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership1.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Receive a special gift box and a 25% discount \ncode on your birthday.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Premium Birthday Gift',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Receive a special gift box and a 25% discount \ncode on your birthday.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 200.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 200.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
           const SizedBox(height: 24),
           Row(
-            children: [
-              Image.asset('assets/icons/membership2.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Accelerated Earning Rate',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership2.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Earn 2x points on all purchases and get \nexclusive bonus challenges.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Accelerated Earning Rate',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Earn 2x points on all purchases and get \nexclusive bonus challenges.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 350.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 350.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
           const SizedBox(height: 24),
           Row(
-            children: [
-              Image.asset('assets/icons/membership3.png', width: 48, height: 48),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Dedicated Priority Support',
-                    style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                  Image.asset(
+                    'assets/icons/membership3.png',
+                    width: 48,
+                    height: 48,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Get dedicated 24/7 priority support via chat \nand phone.',
-                    style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dedicated Priority Support',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Get dedicated 24/7 priority support via chat \nand phone.',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ).animate().fadeIn(duration: 500.ms, delay: 500.ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+              )
+              .animate()
+              .fadeIn(duration: 500.ms, delay: 500.ms)
+              .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
         ],
       ),
     ).animate().fadeIn(duration: 500.ms);
@@ -568,7 +620,7 @@ class MembershipScreen extends StatelessWidget {
               ),
               // ignore: deprecated_member_use
               shadowColor: Colors.black.withOpacity(0.1),
-              elevation: 4, 
+              elevation: 4,
               minimumSize: const Size(110, 29),
             ),
             child: Text(

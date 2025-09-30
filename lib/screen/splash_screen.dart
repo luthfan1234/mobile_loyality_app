@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       )
           .animate()
           .fadeIn(duration: 1500.ms)
-          .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+          .slideY(begin: 0.2, end: 0, curve: Curves.easeOutCubic),
     );
   }
 }

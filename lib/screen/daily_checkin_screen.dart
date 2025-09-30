@@ -43,13 +43,15 @@ class _DailyCheckinState extends State<DailyCheckin> {
                       ],
                     ),
                   ),
-                ),
+                ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
               ],
             ),
-            Expanded(child: _buildScrollableContent(context)),
+            Expanded(
+              child: _buildScrollableContent(context),
+            ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
           ],
         ),
-      ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOut),
+      ),
     );
   }
 
@@ -105,7 +107,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
           ],
         ),
       ),
-    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOut);
+    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic);
   }
 
   Widget _buildCardHeader() {
@@ -174,7 +176,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
           ),
         ),
       ],
-    ).animate().fadeIn(duration: 500.ms, delay: (100 * index).ms).slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
+    ).animate().fadeIn(duration: 500.ms, delay: (100 * index).ms).slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 
   BoxDecoration _getDayContainerDecoration(bool isChecked, bool isToday) {
@@ -403,7 +405,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               ],
                             ),
                           ),
-                        ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+                        ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -511,7 +513,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               ],
                             ),
                           ),
-                        ).animate().fadeIn(duration: 500.ms, delay: (150 * (index + 2)).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+                        ).animate().fadeIn(duration: 500.ms, delay: (150 * (index + 2)).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                       ),
                     ),
                   ],
@@ -617,7 +619,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                           ),
                         ],
                       ),
-                    ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
+                    ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                   ),
                 ),
               ],
