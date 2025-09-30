@@ -24,31 +24,35 @@ class _DailyCheckinState extends State<DailyCheckin> {
               children: [
                 Image.asset('assets/images/daily.png'),
                 Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 70,
-                      right: 16,
-                      left: 16,
-                      bottom: 53,
-                    ),
-                    child: Column(
-                      children: [
-                        _buildAppBar(context),
-                        const SizedBox(height: 16),
-                        _buildDailyCheckinCard(),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 70,
+                          right: 16,
+                          left: 16,
+                          bottom: 53,
+                        ),
+                        child: Column(
+                          children: [
+                            _buildAppBar(context),
+                            const SizedBox(height: 16),
+                            _buildDailyCheckinCard(),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    )
+                    .animate()
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
               ],
             ),
-            Expanded(
-              child: _buildScrollableContent(context),
-            ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+            Expanded(child: _buildScrollableContent(context))
+                .animate()
+                .fadeIn(duration: 600.ms, delay: 200.ms)
+                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
           ],
         ),
       ),
@@ -82,32 +86,35 @@ class _DailyCheckinState extends State<DailyCheckin> {
 
   Widget _buildDailyCheckinCard() {
     return Container(
-      height: 240,
-      width: 360,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFFEE8F0F), Color(0xFFFFB24A)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCardHeader(),
-            const SizedBox(height: 20),
-            _buildWeeklyProgress(),
-            const SizedBox(height: 20),
-            _buildCheckinButton(),
-          ],
-        ),
-      ),
-    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic);
+          height: 240,
+          width: 360,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFFEE8F0F), Color(0xFFFFB24A)],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCardHeader(),
+                const SizedBox(height: 20),
+                _buildWeeklyProgress(),
+                const SizedBox(height: 20),
+                _buildCheckinButton(),
+              ],
+            ),
+          ),
+        )
+        .animate()
+        .fadeIn(duration: 600.ms, delay: 200.ms)
+        .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic);
   }
 
   Widget _buildCardHeader() {
@@ -152,31 +159,34 @@ class _DailyCheckinState extends State<DailyCheckin> {
     bool isToday = index == 4;
 
     return Column(
-      children: [
-        Container(
-          width: 42.42856979370117,
-          height: 52,
-          decoration: _getDayContainerDecoration(isChecked, isToday),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/icons/check.png', width: 24, height: 24),
-              Text(
-                isToday ? 'Today' : 'Day ${index + 1}',
-                style: GoogleFonts.inter(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  color: isChecked || isToday
-                      ? const Color(0xFFD69400)
-                      : Colors.black,
-                  decoration: TextDecoration.none,
-                ),
+          children: [
+            Container(
+              width: 42.42856979370117,
+              height: 52,
+              decoration: _getDayContainerDecoration(isChecked, isToday),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/icons/check.png', width: 24, height: 24),
+                  Text(
+                    isToday ? 'Today' : 'Day ${index + 1}',
+                    style: GoogleFonts.inter(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
+                      color: isChecked || isToday
+                          ? const Color(0xFFD69400)
+                          : Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ],
-    ).animate().fadeIn(duration: 500.ms, delay: (100 * index).ms).slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+            ),
+          ],
+        )
+        .animate()
+        .fadeIn(duration: 500.ms, delay: (100 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 
   BoxDecoration _getDayContainerDecoration(bool isChecked, bool isToday) {
@@ -243,14 +253,13 @@ class _DailyCheckinState extends State<DailyCheckin> {
                     transitionBuilder: (child, animation) {
                       return FadeTransition(
                         opacity: animation,
-                        child: ScaleTransition(
-                          scale: animation,
-                          child: child,
-                        ),
+                        child: ScaleTransition(scale: animation, child: child),
                       );
                     },
                     child: Text(
-                      _isCheckedIn ? "You've checked in today 🎉" : 'Check-in Now',
+                      _isCheckedIn
+                          ? "You've checked in today 🎉"
+                          : 'Check-in Now',
                       key: ValueKey<bool>(_isCheckedIn),
                       style: GoogleFonts.inter(
                         fontSize: 16,
@@ -304,216 +313,244 @@ class _DailyCheckinState extends State<DailyCheckin> {
                     Row(
                       children: List.generate(
                         2,
-                        (index) => Expanded(
-                          child: Container(
-                            height: 134,
-                            margin: EdgeInsets.only(
-                              left: index == 0 ? 0 : 8,
-                              right: index == 1 ? 0 : 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  // ignore: deprecated_member_use
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 16,
-                                  left: 12,
+                        (index) =>
+                            Expanded(
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
+                                    height: 134,
+                                    margin: EdgeInsets.only(
+                                      left: index == 0 ? 0 : 8,
+                                      right: index == 1 ? 0 : 8,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFFFF4E6),
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
                                     ),
-                                    child: Text(
-                                      'Get 500 points',
-                                      style: GoogleFonts.inter(
-                                        color: const Color(0xFFFCB351),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 50,
-                                  left: 12,
-                                  child: Text(
-                                    index == 0
-                                        ? 'Weekly loyalty \nstreak'
-                                        : 'Daily check-in',
-                                    style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: 12,
-                                  right: 0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                    ),
-                                    child: Row(
+                                    child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                          child: SizedBox(
-                                            height: 12,
-                                            width: 107,
-                                            child: LinearProgressIndicator(
-                                              value: 0.6,
-                                              minHeight: 12,
-                                              backgroundColor: const Color(
-                                                0xFFE4D9F8,
+                                        Positioned(
+                                          top: 16,
+                                          left: 12,
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFFFF4E6),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Text(
+                                              'Get 500 points',
+                                              style: GoogleFonts.inter(
+                                                color: const Color(0xFFFCB351),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
                                               ),
-                                              valueColor:
-                                                  const AlwaysStoppedAnimation<Color>(Color(0xFF7743DB)),
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(width: 18),
-                                        Text(
-                                          '${1 + index} of 7',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
+                                        Positioned(
+                                          top: 50,
+                                          left: 12,
+                                          child: Text(
+                                            index == 0
+                                                ? 'Weekly loyalty \nstreak'
+                                                : 'Daily check-in',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 12,
+                                          right: 0,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  child: SizedBox(
+                                                    height: 12,
+                                                    width: 107,
+                                                    child: LinearProgressIndicator(
+                                                      value: 0.6,
+                                                      minHeight: 12,
+                                                      backgroundColor:
+                                                          const Color(
+                                                            0xFFE4D9F8,
+                                                          ),
+                                                      valueColor:
+                                                          const AlwaysStoppedAnimation<
+                                                            Color
+                                                          >(Color(0xFF7743DB)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 18),
+                                                Text(
+                                                  '${1 + index} of 7',
+                                                  style: GoogleFonts.inter(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
+                                )
+                                .animate()
+                                .fadeIn(
+                                  duration: 500.ms,
+                                  delay: (150 * index).ms,
+                                )
+                                .slideX(
+                                  begin: 0.5,
+                                  end: 0,
+                                  curve: Curves.easeOutCubic,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                       ),
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: List.generate(
                         2,
-                        (index) => Expanded(
-                          child: Container(
-                            height: 134,
-                            margin: EdgeInsets.only(
-                              left: index == 0 ? 0 : 8,
-                              right: index == 1 ? 0 : 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  // ignore: deprecated_member_use
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 16,
-                                  left: 12,
+                        (index) =>
+                            Expanded(
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
+                                    height: 134,
+                                    margin: EdgeInsets.only(
+                                      left: index == 0 ? 0 : 8,
+                                      right: index == 1 ? 0 : 8,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFFFF4E6),
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // ignore: deprecated_member_use
+                                          color: Colors.black.withOpacity(0.1),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
                                     ),
-                                    child: Text(
-                                      'Get 500 points',
-                                      style: GoogleFonts.inter(
-                                        color: const Color(0xFFFCB351),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 50,
-                                  left: 12,
-                                  child: Text(
-                                    index + 2 == 2
-                                        ? 'Weekly loyalty \nstreak'
-                                        : 'Daily check-in',
-                                    style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: 12,
-                                  right: 0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                    ),
-                                    child: Row(
+                                    child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                          child: SizedBox(
-                                            height: 12,
-                                            width: 107,
-                                            child: LinearProgressIndicator(
-                                              value: 0.6,
-                                              minHeight: 12,
-                                              backgroundColor: const Color(
-                                                0xFFE4D9F8,
+                                        Positioned(
+                                          top: 16,
+                                          left: 12,
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFFFF4E6),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                            ),
+                                            child: Text(
+                                              'Get 500 points',
+                                              style: GoogleFonts.inter(
+                                                color: const Color(0xFFFCB351),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
                                               ),
-                                              valueColor:
-                                                  const AlwaysStoppedAnimation<Color>(Color(0xFF7743DB)),
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(width: 18),
-                                        Text(
-                                          '${3 + index} of 7',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black,
+                                        Positioned(
+                                          top: 50,
+                                          left: 12,
+                                          child: Text(
+                                            index + 2 == 2
+                                                ? 'Weekly loyalty \nstreak'
+                                                : 'Daily check-in',
+                                            style: GoogleFonts.inter(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 10,
+                                          left: 12,
+                                          right: 0,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  child: SizedBox(
+                                                    height: 12,
+                                                    width: 107,
+                                                    child: LinearProgressIndicator(
+                                                      value: 0.6,
+                                                      minHeight: 12,
+                                                      backgroundColor:
+                                                          const Color(
+                                                            0xFFE4D9F8,
+                                                          ),
+                                                      valueColor:
+                                                          const AlwaysStoppedAnimation<
+                                                            Color
+                                                          >(Color(0xFF7743DB)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 18),
+                                                Text(
+                                                  '${3 + index} of 7',
+                                                  style: GoogleFonts.inter(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
+                                )
+                                .animate()
+                                .fadeIn(
+                                  duration: 500.ms,
+                                  delay: (150 * (index + 2)).ms,
+                                )
+                                .slideX(
+                                  begin: 0.5,
+                                  end: 0,
+                                  curve: Curves.easeOutCubic,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ).animate().fadeIn(duration: 500.ms, delay: (150 * (index + 2)).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                       ),
                     ),
                   ],
@@ -548,78 +585,87 @@ class _DailyCheckinState extends State<DailyCheckin> {
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 3,
-                    itemBuilder: (context, index) => Container(
-                      width: 132,
-                      height: 196,
-                      margin: const EdgeInsets.only(right: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            // ignore: deprecated_member_use
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
-                              ),
-                              child: Image.asset(
-                                'assets/images/discount${index + 1}.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 110,
-                            left: 12,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  index == 0
-                                      ? '10% discount \nvoucher'
-                                      : index == 1
-                                      ? '25% discount \nvoucher'
-                                      : '30% discount \nvoucher',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    height: 1.5,
+                    itemBuilder: (context, index) =>
+                        Container(
+                              width: 132,
+                              height: 196,
+                              margin: const EdgeInsets.only(right: 16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    // ignore: deprecated_member_use
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 2),
                                   ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  index == 0
-                                      ? '1000 points'
-                                      : index == 1
-                                      ? '2500 points'
-                                      : '3000 points',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFFFCB351),
-                                    height: 1.5,
+                                ],
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/discount${index + 1}.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Positioned(
+                                    top: 110,
+                                    left: 12,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          index == 0
+                                              ? '10% discount \nvoucher'
+                                              : index == 1
+                                              ? '25% discount \nvoucher'
+                                              : '30% discount \nvoucher',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            height: 1.5,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          index == 0
+                                              ? '1000 points'
+                                              : index == 1
+                                              ? '2500 points'
+                                              : '3000 points',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFFFCB351),
+                                            height: 1.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            .animate()
+                            .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+                            .slideX(
+                              begin: 0.5,
+                              end: 0,
+                              curve: Curves.easeOutCubic,
                             ),
-                          ),
-                        ],
-                      ),
-                    ).animate().fadeIn(duration: 500.ms, delay: (150 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic),
                   ),
                 ),
               ],
