@@ -49,7 +49,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
             Expanded(child: _buildScrollableContent(context)),
           ],
         ),
-      ),
+      ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
     );
   }
 
@@ -59,7 +59,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
         IconButton(
           icon: const Icon(Icons.arrow_back),
           iconSize: 24,
-          onPressed: () => Navigator.pop(context), // Fixed navigation
+          onPressed: () => Navigator.pop(context),
         ),
         Expanded(
           child: Text(
@@ -174,7 +174,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
           ),
         ),
       ],
-    );
+    ).animate().fadeIn(delay: (100 * index).ms).slideY(begin: 0.5, end: 0, curve: Curves.easeOut);
   }
 
   BoxDecoration _getDayContainerDecoration(bool isChecked, bool isToday) {
@@ -268,7 +268,6 @@ class _DailyCheckinState extends State<DailyCheckin> {
   }
 
   Widget _buildScrollableContent(BuildContext context) {
-    // Fixed method name
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -313,10 +312,9 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
-                                  blurRadius: 12,
-                                  spreadRadius: 0,
-                                  offset: const Offset(1, 0),
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
@@ -382,9 +380,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                                                 0xFFE4D9F8,
                                               ),
                                               valueColor:
-                                                  const AlwaysStoppedAnimation<
-                                                    Color
-                                                  >(Color(0xFF7743DB)),
+                                                  const AlwaysStoppedAnimation<Color>(Color(0xFF7743DB)),
                                             ),
                                           ),
                                         ),
@@ -423,10 +419,9 @@ class _DailyCheckinState extends State<DailyCheckin> {
                               borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
-                                  blurRadius: 12,
-                                  spreadRadius: 0,
-                                  offset: const Offset(1, 0),
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),
@@ -492,9 +487,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                                                 0xFFE4D9F8,
                                               ),
                                               valueColor:
-                                                  const AlwaysStoppedAnimation<
-                                                    Color
-                                                  >(Color(0xFF7743DB)),
+                                                  const AlwaysStoppedAnimation<Color>(Color(0xFF7743DB)),
                                             ),
                                           ),
                                         ),
@@ -552,19 +545,15 @@ class _DailyCheckinState extends State<DailyCheckin> {
                     itemBuilder: (context, index) => Container(
                       width: 132,
                       height: 196,
-                      margin: EdgeInsets.only(
-                        left: index == 0 ? 20 : 0,
-                        right: 16,
-                      ),
+                      margin: const EdgeInsets.only(right: 16),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.15),
-                            blurRadius: 2,
-                            spreadRadius: 0,
-                            offset: const Offset(1, 0),
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
@@ -623,7 +612,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                           ),
                         ],
                       ),
-                    ),
+                    ).animate().fadeIn(delay: (200 * index).ms).slideX(begin: 0.5, end: 0, curve: Curves.easeOut),
                   ),
                 ),
               ],

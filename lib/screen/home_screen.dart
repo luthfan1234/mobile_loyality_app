@@ -207,7 +207,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset('assets/images/promo.png'),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CustomPageRoute(child: const DailyCheckin()),
+                    );
+                  },
+                  child: Image.asset('assets/images/promo.png'),
+                ),
                 const SizedBox(height: 32),
                 Text(
                   'Current Missions',
