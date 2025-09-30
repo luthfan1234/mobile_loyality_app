@@ -41,50 +41,70 @@ class _PointScreenState extends State<PointScreen>
             alignment: Alignment.topCenter,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 70, bottom: 53),
-          child: Column(
-            children: [
-              _buildAppBar(context),
-              const SizedBox(height: 24),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
-                    ),
-                  ),
+        child:
+            Padding(
+                  padding: const EdgeInsets.only(top: 70, bottom: 53),
                   child: Column(
                     children: [
-                      TabBar(
-                        controller: _tabController,
-                        tabs: const [
-                          Tab(text: 'Redeem Points'),
-                          Tab(text: 'Earn Points'),
-                        ],
-                      ),
+                      _buildAppBar(context),
+                      const SizedBox(height: 24),
                       Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            _buildRedeemPointsTab(),
-                            _buildRedeemPointsTab(),
-                          ],
+                        child: Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              TabBar(
+                                controller: _tabController,
+                                tabs: const [
+                                  Tab(text: 'Redeem Points'),
+                                  Tab(text: 'Earn Points'),
+                                ],
+                                indicatorColor: const Color(
+                                  0xFF7743DB,
+                                ), // Warna indicator
+                                indicatorWeight: 3.0, // Ketebalan indicator
+                                indicatorSize:
+                                    TabBarIndicatorSize.tab, // Ukuran indicator
+                                labelColor: const Color(
+                                  0xFF7743DB,
+                                ), // Warna teks aktif
+                                unselectedLabelColor:
+                                    Colors.grey, // Warna teks tidak aktif
+                                labelStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                unselectedLabelStyle: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Expanded(
+                                child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                    _buildRedeemPointsTab(),
+                                    _buildRedeemPointsTab(),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ],
-          ),
-        )
-            .animate()
-            .fadeIn(duration: 800.ms, delay: 300.ms)
-            .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+                )
+                .animate()
+                .fadeIn(duration: 800.ms, delay: 300.ms)
+                .slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
       ),
     );
   }
@@ -124,31 +144,6 @@ class _PointScreenState extends State<PointScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 22),
-              Row(
-                children: [
-                  Text(
-                    'Redeem Your Points',
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                      height: 1.5,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    'See All',
-                    style: GoogleFonts.inter(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF7743DB),
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
               SizedBox(
                 height: 228,
                 child: ListView.builder(
