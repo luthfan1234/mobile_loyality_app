@@ -182,6 +182,7 @@ class DailyCheckin extends StatelessWidget {
     } else {
       // ignore: deprecated_member_use
       containerColor = Color(0xFFFFE5C1).withOpacity(0.5);
+      // ignore: deprecated_member_use
       borderColor = Color(0xFFFFE5C1).withOpacity(0.5);
     }
 
