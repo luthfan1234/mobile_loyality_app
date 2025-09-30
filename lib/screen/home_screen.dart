@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/screen/membership_screen.dart';
+import 'package:flutter_application_2/screen/point_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'daily_checkin_screen.dart';
@@ -739,7 +740,7 @@ class _Link_Group extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  CustomPageRoute(child: const DailyCheckin()),
+                  CustomPageRoute(child: const PointScreen()),
                 );
               },
               child: Row(
