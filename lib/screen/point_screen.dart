@@ -47,7 +47,7 @@ class _PointScreenState extends State<PointScreen>
                   child: Column(
                     children: [
                       _buildAppBar(context),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 40),
                       Expanded(
                         child: Container(
                           width: double.infinity,
@@ -143,77 +143,80 @@ class _PointScreenState extends State<PointScreen>
         const SizedBox(height: 24),
 
         // Row 2: Points + Link
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left: Icon + "1.200 Points"
-            Row(
-              children: [
-                Image.asset('assets/icons/point.png', width: 32, height: 32),
-                const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '1.200',
-                          style: GoogleFonts.inter(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Left: Icon + "1.200 Points"
+              Row(
+                children: [
+                  Image.asset('assets/icons/point.png', width: 32, height: 32),
+                  const SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '1.200',
+                            style: GoogleFonts.inter(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Points',
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(
+                            Icons.info_outline,
+                            size: 16,
                             color: Colors.white,
                           ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Points',
-                          style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          Icons.info_outline,
-                          size: 16,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-
-                    // Row 3: Expiring text
-                    Text(
-                      '200 points expiring on 31/12/2023',
-                      style: GoogleFonts.inter(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white.withOpacity(0.9),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
 
-            // Right: Link
-            GestureDetector(
-              onTap: () {
-                // TODO: Navigate to history page
-              },
-              child: Text(
-                'Point history',
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  decoration: TextDecoration.underline,
+                      // Row 3: Expiring text
+                      Text(
+                        '200 points expiring on 31/12/2023',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // Right: Link
+              GestureDetector(
+                onTap: () {
+                  // TODO: Navigate to history page
+                },
+                child: Text(
+                  'Point history',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
