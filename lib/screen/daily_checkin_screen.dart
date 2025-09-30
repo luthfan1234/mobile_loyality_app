@@ -23,30 +23,25 @@ class _DailyCheckinState extends State<DailyCheckin> {
             Stack(
               children: [
                 Image.asset('assets/images/daily.png'),
-                Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 70,
-                          right: 16,
-                          left: 16,
-                          bottom: 53,
-                        ),
-                        child: Column(
-                          children: [
-                            _buildAppBar(context),
-                            const SizedBox(height: 16),
-                            _buildDailyCheckinCard(),
-                            const SizedBox(height: 16),
-                          ],
-                        ),
-                      ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 70, right: 16, left: 16),
+                      child: _buildAppBar(context),
                     )
-                    .animate()
-                    .fadeIn(duration: 600.ms)
-                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+                        .animate()
+                        .fadeIn(duration: 600.ms)
+                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: _buildDailyCheckinCard(),
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 200.ms)
+                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                  ],
+                ),
               ],
             ),
             Expanded(child: _buildScrollableContent(context))
@@ -111,10 +106,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
               ],
             ),
           ),
-        )
-        .animate()
-        .fadeIn(duration: 600.ms, delay: 200.ms)
-        .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic);
+        );
   }
 
   Widget _buildCardHeader() {

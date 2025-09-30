@@ -16,30 +16,30 @@ class MembershipScreen extends StatelessWidget {
             Stack(
               children: [
                 Image.asset('assets/images/membership.png'),
-                Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 70, bottom: 53),
-                          child: Column(
-                            children: [
-                              _buildAppBar(context),
-                              const SizedBox(height: 16),
-                              _buildDailyCheckinCard(),
-                            ],
-                          ),
-                        ),
-                      ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 70),
+                      child: _buildAppBar(context),
                     )
-                    .animate()
-                    .fadeIn(duration: 600.ms, delay: 200.ms)
-                    .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+                        .animate()
+                        .fadeIn(duration: 600.ms)
+                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                    const SizedBox(height: 16),
+                    _buildDailyCheckinCard()
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 200.ms)
+                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                  ],
+                ),
               ],
             ),
-            _buildTabBar(),
+            Expanded(
+              child: _buildTabBar()
+                  .animate()
+                  .fadeIn(duration: 600.ms, delay: 400.ms)
+                  .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+            ),
           ],
         ),
       ),

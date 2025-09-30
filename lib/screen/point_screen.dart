@@ -33,77 +33,86 @@ class _PointScreenState extends State<PointScreen>
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white, // Set a white background color
-        image: DecorationImage(
-          image: AssetImage('assets/images/point.png'),
-          alignment: Alignment.topCenter,
-        ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body:
-            Padding(
-                  padding: const EdgeInsets.only(top: 70, bottom: 53),
-                  child: Column(
-                    children: [
-                      _buildAppBar(context),
-                      const SizedBox(height: 22),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Material(
-                              color: Colors.white,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16),
-                                ),
-                              ),
-                              child: TabBar(
-                                controller: _tabController,
-                                tabs: const [
-                                  Tab(text: 'Redeem Points'),
-                                  Tab(text: 'Earn Points'),
-                                ],
-                                indicatorColor: const Color(
-                                  0xFF7743DB,
-                                ),
-                                indicatorWeight: 3.0, 
-                                indicatorSize:
-                                    TabBarIndicatorSize.tab, 
-                                labelColor: const Color(
-                                  0xFF7743DB,
-                                ), 
-                                unselectedLabelColor: const Color(
-                                  0xFF475467,
-                                ), 
-                                labelStyle: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                unselectedLabelStyle: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: TabBarView(
-                                controller: _tabController,
-                                children: [
-                                  _buildRedeemPointsTab(),
-                                  _buildEarnPointsTab(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+        body: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 220,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/point.png'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 70, bottom: 53),
+                  child: _buildAppBar(context),
                 )
+                    .animate()
+                    .fadeIn(duration: 600.ms)
+                    .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+              ],
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Material(
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      tabs: const [
+                        Tab(text: 'Redeem Points'),
+                        Tab(text: 'Earn Points'),
+                      ],
+                      indicatorColor: const Color(
+                        0xFF7743DB,
+                      ),
+                      indicatorWeight: 3.0,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      labelColor: const Color(
+                        0xFF7743DB,
+                      ),
+                      unselectedLabelColor: const Color(
+                        0xFF475467,
+                      ),
+                      labelStyle: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      unselectedLabelStyle: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildRedeemPointsTab(),
+                        _buildEarnPointsTab(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
                 .animate()
                 .fadeIn(duration: 600.ms, delay: 200.ms)
                 .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+          ],
+        ),
       ),
     );
   }
