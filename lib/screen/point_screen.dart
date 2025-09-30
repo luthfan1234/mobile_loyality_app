@@ -144,93 +144,105 @@ class _PointScreenState extends State<PointScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 228,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
-                  itemBuilder: (context, index) => Container(
-                    width: 170.5,
-                    height: 240,
-                    margin: EdgeInsets.only(
-                      left: index == 0 ? 20 : 0,
-                      right: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          // ignore: deprecated_member_use
-                          color: Colors.black.withOpacity(0.15),
-                          blurRadius: 2,
-                          spreadRadius: 0,
-                          offset: const Offset(1, 0),
-                        ),
-                      ],
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12),
-                            ),
-                            child: Image.asset(
-                              'assets/images/discount${index + 1}.png',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 140,
-                          left: 12,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                index == 0
-                                    ? '10% discount \nvoucher'
-                                    : index == 1
-                                    ? '25% discount \nvoucher'
-                                    : '30% discount \nvoucher',
-                                style: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                  height: 1.5,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                index == 0
-                                    ? '1000 points'
-                                    : index == 1
-                                    ? '2500 points'
-                                    : '3000 points',
-                                style: GoogleFonts.inter(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xFFFCB351),
-                                  height: 1.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ).animate().fadeIn(delay: (300 * (index + 1)).ms).slideX(),
-                ),
+              // First row
+              Row(
+                children: [
+                  Expanded(child: _buildDiscountCard(0)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildDiscountCard(1)),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Second row
+              Row(
+                children: [
+                  Expanded(child: _buildDiscountCard(2)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildDiscountCard(3)),
+                ],
+              ),
+              const SizedBox(height: 16),
+              // Third row
+              Row(
+                children: [
+                  Expanded(child: _buildDiscountCard(4)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildDiscountCard(5)),
+                ],
               ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  Widget _buildDiscountCard(int index) {
+    final discounts = ['10%', '25%', '30%', '15%', '20%', '35%'];
+    final points = ['1000', '2500', '3000', '1500', '2000', '3500'];
+    
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 2,
+            spreadRadius: 0,
+            offset: const Offset(1, 0),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              child: Image.asset(
+                'assets/images/discount${(index % 2) + 1}.png',
+                height: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 130,
+            left: 12,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${discounts[index]} discount \nvoucher',
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${points[index]} points',
+                  style: GoogleFonts.inter(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFFFCB351),
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ).animate().fadeIn(delay: (200 * (index + 1)).ms).slideY(begin: 0.3, end: 0);
   }
 }
