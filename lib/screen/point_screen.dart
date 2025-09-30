@@ -182,7 +182,7 @@ class _PointScreenState extends State<PointScreen>
     final points = ['1000', '2500', '3000', '1500', '2000', '3500'];
 
     return Container(
-          height: 234,
+          height: 238,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -191,7 +191,7 @@ class _PointScreenState extends State<PointScreen>
                 color: Colors.black.withOpacity(0.15),
                 blurRadius: 2,
                 spreadRadius: 0,
-                offset: const Offset(1, 0),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
