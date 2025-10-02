@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/screen/voucher_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -111,7 +112,7 @@ class RewardScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                _buildRedeemPointsTab(),
+                _buildRedeemPointsTab(context),
               ],
             ),
           ),
@@ -121,7 +122,7 @@ class RewardScreen extends StatelessWidget {
   }
 }
 
-Widget _buildRedeemPointsTab() {
+Widget _buildRedeemPointsTab(BuildContext context) {
   return ListView(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -135,27 +136,27 @@ Widget _buildRedeemPointsTab() {
             // First row
             Row(
               children: [
-                Expanded(child: _buildDiscountCard(0)),
+                Expanded(child: _buildDiscountCard(0, context)),
                 const SizedBox(width: 16),
-                Expanded(child: _buildDiscountCard(1)),
+                Expanded(child: _buildDiscountCard(1, context)),
               ],
             ),
             const SizedBox(height: 16),
             // Second row
             Row(
               children: [
-                Expanded(child: _buildDiscountCard(2)),
+                Expanded(child: _buildDiscountCard(2, context)),
                 const SizedBox(width: 16),
-                Expanded(child: _buildDiscountCard(3)),
+                Expanded(child: _buildDiscountCard(3, context)),
               ],
             ),
             const SizedBox(height: 16),
             // Third row
             Row(
               children: [
-                Expanded(child: _buildDiscountCard(4)),
+                Expanded(child: _buildDiscountCard(4, context)),
                 const SizedBox(width: 16),
-                Expanded(child: _buildDiscountCard(5)),
+                Expanded(child: _buildDiscountCard(5, context)),
               ],
             ),
           ],
@@ -165,7 +166,7 @@ Widget _buildRedeemPointsTab() {
   );
 }
 
-Widget _buildDiscountCard(int index) {
+Widget _buildDiscountCard(int index, BuildContext context) {
   final discounts = ['10%', '25%', '30%', '15%', '20%', '35%'];
   final points = ['1000', '2500', '3000', '1500', '2000', '3500'];
 
@@ -241,12 +242,22 @@ Widget _buildDiscountCard(int index) {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
-                      child: Text(
-                        'Redeem Now',
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF7743DB),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VoucherDetailScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Redeem Now',
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF7743DB),
+                          ),
                         ),
                       ),
                     ),
