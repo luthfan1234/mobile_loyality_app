@@ -55,7 +55,63 @@ class RewardScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [],
+              children: [
+                // Search bar and filter icon
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: 297,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF2F4F7),
+                          borderRadius: BorderRadius.circular(60),
+                          border: Border.all(color: Color(0xFFE4D9F8)),
+                        ),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search',
+                            hintStyle: GoogleFonts.inter(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFFA0A4B0),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Color(0xFFA0A4B0),
+                              size: 24,
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF2F4F7),
+                        borderRadius: BorderRadius.circular(60),
+                        border: Border.all(color: Color(0xFFE4D9F8)),
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.tune,
+                          color: Color(0xFFA0A4B0),
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
           ),
         ],
@@ -85,7 +141,7 @@ class _Link_Group extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Gold section
             GestureDetector(
@@ -95,13 +151,13 @@ class _Link_Group extends StatelessWidget {
                     width: 24,
                     height: 24,
                     child: Image.asset(
-                      'assets/icons/tier.png',
+                      'assets/icons/voucher.png',
                       fit: BoxFit.contain,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Gold',
+                    '12 Vouchers',
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -117,8 +173,6 @@ class _Link_Group extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Vertical divider
           ],
         ),
       ),
