@@ -111,6 +111,7 @@ class RewardScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
+                _buildRedeemPointsTab(),
               ],
             ),
           ),
@@ -118,6 +119,147 @@ class RewardScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildRedeemPointsTab() {
+  return ListView(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    padding: EdgeInsets.zero,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // First row
+            Row(
+              children: [
+                Expanded(child: _buildDiscountCard(0)),
+                const SizedBox(width: 16),
+                Expanded(child: _buildDiscountCard(1)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Second row
+            Row(
+              children: [
+                Expanded(child: _buildDiscountCard(2)),
+                const SizedBox(width: 16),
+                Expanded(child: _buildDiscountCard(3)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Third row
+            Row(
+              children: [
+                Expanded(child: _buildDiscountCard(4)),
+                const SizedBox(width: 16),
+                Expanded(child: _buildDiscountCard(5)),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildDiscountCard(int index) {
+  final discounts = ['10%', '25%', '30%', '15%', '20%', '35%'];
+  final points = ['1000', '2500', '3000', '1500', '2000', '3500'];
+
+  return Container(
+        height: 238,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              // ignore: deprecated_member_use
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 2,
+              spreadRadius: 0,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+                child: Image.asset(
+                  'assets/images/discount${(index % 3) + 1}.png',
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 130,
+              left: 12,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${discounts[index]} discount \nvoucher',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      height: 1.3,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '${points[index]} points',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFFFCB351),
+                      height: 1.3,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 160,
+                    height: 32,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xFF7743DB),
+                        width: 1,
+                      ),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Redeem Now',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF7743DB),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      )
+      .animate()
+      .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+      .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
 }
 
 // ignore: camel_case_types
