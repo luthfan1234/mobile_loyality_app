@@ -30,46 +30,39 @@ class _PointScreenState extends State<PointScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(),
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: 220,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/point.png'),
-                  fit: BoxFit.cover,
-                ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 250,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/point.png'),
+                fit: BoxFit.cover,
               ),
             ),
-            SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 53),
-                    child: _buildAppBar(context),
-                  ),
-                )
-                .animate()
-                .fadeIn(duration: 600.ms)
-                .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
-            Positioned(
-                  top: 194,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Column(
-                    children: [
-                      Material(
-                        color: Colors.white,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            topRight: Radius.circular(16),
-                          ),
-                        ),
-                        child: TabBar(
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: _buildAppBar(context),
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        TabBar(
                           controller: _tabController,
                           tabs: const [
                             Tab(text: 'Redeem Points'),
@@ -89,24 +82,23 @@ class _PointScreenState extends State<PointScreen>
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            _buildRedeemPointsTab(),
-                            _buildEarnPointsTab(),
-                          ],
+                        Expanded(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: [
+                              _buildRedeemPointsTab(),
+                              _buildEarnPointsTab(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                )
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
-          ],
-        ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
