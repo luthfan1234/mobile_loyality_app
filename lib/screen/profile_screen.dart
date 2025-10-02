@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_application_2/screen/account_information.dart';
+import 'package:flutter_application_2/utils/page_route_animation.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -36,7 +38,11 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildListSection(String title, List<String> items) {
+  Widget _buildListSection(
+    String title,
+    List<String> items,
+    BuildContext context,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,23 +58,37 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
         ),
-        ...items.map((item) => Column(
-          children: [
-            ListTile(
-              title: Text(
-                item,
-                style: GoogleFonts.inter(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF1D2939),
-                ),
+        ...items
+            .map(
+              (item) => Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      item,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF1D2939),
+                      ),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      Widget? screen;
+                      switch (item) {
+                        case "Account Information":
+                          screen = const AccountInformationScreen();
+                          break;
+                      }
+                      if (screen != null) {
+                        Navigator.push(context, CustomPageRoute(child: screen));
+                      }
+                    },
+                  ),
+                  const Divider(height: 1, color: Color(0xFFF2F4F7)),
+                ],
               ),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {},
-            ),
-            const Divider(height: 1, color: Color(0xFFF2F4F7)),
-          ],
-        )).toList(),
+            )
+            .toList(),
       ],
     );
   }
@@ -82,11 +102,7 @@ class ProfileScreen extends StatelessWidget {
       "Settings",
     ];
 
-    final List<String> supportItems = [
-      "About Us",
-      "FAQ",
-      "Help",
-    ];
+    final List<String> supportItems = ["About Us", "FAQ", "Help"];
 
     return Container(
       width: double.infinity,
@@ -102,9 +118,9 @@ class ProfileScreen extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
         children: [
-          _buildListSection("GENERAL", generalItems),
+          _buildListSection("GENERAL", generalItems, context),
           const SizedBox(height: 16),
-          _buildListSection("SUPPORT", supportItems),
+          _buildListSection("SUPPORT", supportItems, context),
           const SizedBox(height: 16),
 
           // === Tombol Logout ===
@@ -116,7 +132,10 @@ class ProfileScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              // Implement logout logic here
+              print("Logout tapped!");
+            },
           ),
         ],
       ),
