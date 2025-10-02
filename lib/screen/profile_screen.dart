@@ -122,8 +122,6 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(height: 16),
           _buildListSection("SUPPORT", supportItems, context),
           const SizedBox(height: 16),
-
-          // === Tombol Logout ===
           ListTile(
             title: Text(
               "Logout",
@@ -133,7 +131,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             onTap: () {
-              // Implement logout logic here
               print("Logout tapped!");
             },
           ),
@@ -152,7 +149,7 @@ class _Link_Group extends StatelessWidget {
       width: double.infinity,
       height: 111,
       decoration: const BoxDecoration(
-        color: Color(0xFFE4D9F8), // background ungu muda
+        color: Color(0xFFE4D9F8),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -169,7 +166,6 @@ class _Link_Group extends StatelessWidget {
           ),
           child: Row(
             children: [
-              // Bagian kiri (Gold Membership)
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -213,15 +209,12 @@ class _Link_Group extends StatelessWidget {
                   ],
                 ),
               ),
-
-              // Garis pemisah
               Container(
                 width: 2,
                 height: 41,
+                // ignore: deprecated_member_use
                 color: const Color(0xFF475467).withOpacity(0.1),
               ),
-
-              // Bagian kanan (Points)
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
