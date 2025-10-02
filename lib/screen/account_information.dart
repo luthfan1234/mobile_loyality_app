@@ -8,9 +8,15 @@ class AccountInformationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         title: Text(
-          'About Us',
-          style: GoogleFonts.inter(fontWeight: FontWeight.w600),
+          'Account Information',
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            color: Colors.black,
+            height: 1.5,
+          ),
         ),
         centerTitle: true,
       ),

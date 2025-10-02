@@ -26,20 +26,28 @@ class _DailyCheckinState extends State<DailyCheckin> {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 70, right: 16, left: 16),
-                      child: _buildAppBar(context),
-                    )
+                          padding: const EdgeInsets.only(top: 70),
+                          child: _buildAppBar(context),
+                        )
                         .animate()
                         .fadeIn(duration: 600.ms)
-                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                        .slideY(
+                          begin: -0.3,
+                          end: 0,
+                          curve: Curves.easeOutCubic,
+                        ),
                     const SizedBox(height: 16),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: _buildDailyCheckinCard(),
-                    )
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: _buildDailyCheckinCard(),
+                        )
                         .animate()
                         .fadeIn(duration: 600.ms, delay: 200.ms)
-                        .slideY(begin: -0.3, end: 0, curve: Curves.easeOutCubic),
+                        .slideY(
+                          begin: -0.3,
+                          end: 0,
+                          curve: Curves.easeOutCubic,
+                        ),
                   ],
                 ),
               ],
@@ -81,32 +89,32 @@ class _DailyCheckinState extends State<DailyCheckin> {
 
   Widget _buildDailyCheckinCard() {
     return Container(
-          height: 240,
-          width: 360,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFFEE8F0F), Color(0xFFFFB24A)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildCardHeader(),
-                const SizedBox(height: 20),
-                _buildWeeklyProgress(),
-                const SizedBox(height: 20),
-                _buildCheckinButton(),
-              ],
-            ),
-          ),
-        );
+      height: 250,
+      width: 390,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFEE8F0F), Color(0xFFFFB24A)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color(0xFFE0E0E0), width: 1),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildCardHeader(),
+            const SizedBox(height: 20),
+            _buildWeeklyProgress(),
+            const SizedBox(height: 20),
+            _buildCheckinButton(),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildCardHeader() {
