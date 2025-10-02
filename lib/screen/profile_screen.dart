@@ -36,27 +36,87 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildListSection(String title, List<String> items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFA0A4B0),
+              height: 1.5,
+            ),
+          ),
+        ),
+        ...items.map((item) => Column(
+          children: [
+            ListTile(
+              title: Text(
+                item,
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF1D2939),
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {},
+            ),
+            const Divider(height: 1, color: Color(0xFFF2F4F7)),
+          ],
+        )).toList(),
+      ],
+    );
+  }
+
   // ignore: non_constant_identifier_names
   Widget _Scrollable_Contain(BuildContext context) {
+    final List<String> generalItems = [
+      "Account Information",
+      "Transaction History",
+      "Referral Code",
+      "Settings",
+    ];
+
+    final List<String> supportItems = [
+      "About Us",
+      "FAQ",
+      "Help",
+    ];
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 100),
-      decoration: BoxDecoration(
+
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
       ),
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [const SizedBox(height: 20)],
+          _buildListSection("GENERAL", generalItems),
+          const SizedBox(height: 16),
+          _buildListSection("SUPPORT", supportItems),
+          const SizedBox(height: 16),
+
+          // === Tombol Logout ===
+          ListTile(
+            title: Text(
+              "Logout",
+              style: GoogleFonts.inter(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            onTap: () {},
           ),
         ],
       ),
@@ -104,22 +164,22 @@ class _Link_Group extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Gold',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFD69400),
+                            color: const Color(0xFFD69400),
                             height: 1.5,
                           ),
                         ),
                         Text(
                           'Membership',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xFFA0A4B0),
+                            color: const Color(0xFFA0A4B0),
                             height: 1.4,
                           ),
                         ),
@@ -139,7 +199,7 @@ class _Link_Group extends StatelessWidget {
               Container(
                 width: 2,
                 height: 41,
-                color: Color(0xFF475467).withOpacity(0.1),
+                color: const Color(0xFF475467).withOpacity(0.1),
               ),
 
               // Bagian kanan (Points)
@@ -156,22 +216,22 @@ class _Link_Group extends StatelessWidget {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           '1.200',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFD69400),
+                            color: const Color(0xFFD69400),
                             height: 1.5,
                           ),
                         ),
                         Text(
                           'Points',
-                          style: TextStyle(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xFFA0A4B0),
+                            color: const Color(0xFFA0A4B0),
                             height: 1.4,
                           ),
                         ),
@@ -208,8 +268,8 @@ Widget _buildAppBar(BuildContext context) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/icons/point.png', width: 48, height: 48),
-                const SizedBox(width: 4),
+                Image.asset('assets/icons/avatar.png', width: 64, height: 64),
+                const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -217,58 +277,30 @@ Widget _buildAppBar(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '1.200',
+                          'Marissa Edwards',
                           style: GoogleFonts.inter(
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFE4D9F8),
+                            height: 1.4,
                           ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Points',
-                          style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          Icons.info_outline,
-                          size: 16,
-                          color: Colors.white,
                         ),
                       ],
                     ),
 
                     // Row 3: Expiring text
                     Text(
-                      '200 points expiring on 31/12/2023',
+                      '+62 851 6767 9900',
                       style: GoogleFonts.inter(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        // ignore: deprecated_member_use
-                        color: Colors.white.withOpacity(0.9),
+                        color: const Color(0xFFE4D9F8),
+                        height: 1.4,
                       ),
                     ),
                   ],
                 ),
               ],
-            ),
-
-            // Right: Link
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                'Point history',
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
             ),
           ],
         ),
