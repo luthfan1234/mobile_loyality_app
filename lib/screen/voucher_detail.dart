@@ -99,10 +99,7 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
       indicatorSize: TabBarIndicatorSize.tab,
       labelColor: const Color(0xFF7743DB),
       unselectedLabelColor: const Color(0xFF475467),
-      labelStyle: GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-      ),
+      labelStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500),
       unselectedLabelStyle: GoogleFonts.inter(
         fontSize: 14,
         fontWeight: FontWeight.w500,
@@ -138,10 +135,7 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
                 children: [
                   Text(
                     'Terms and Conditions',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
                   Text('1. Voucher is valid for one-time use only.'),
