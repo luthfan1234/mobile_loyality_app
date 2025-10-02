@@ -57,6 +57,72 @@ class AccountInformationScreen extends StatelessWidget {
             ),
           ),
         ),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Full Name",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Color(0xFF1D2939),
+                  height: 1.5,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "Marissa Edwards",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {},
+        ),
+        Divider(height: 1),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Username",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Color(0xFF1D2939),
+                  height: 1.5,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "Marissa Edwards",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {},
+        ),
+        Divider(height: 1),
       ],
     );
   }
@@ -68,17 +134,116 @@ class AccountInformationScreen extends StatelessWidget {
         Text(
           'PERSONAL INFO',
           style: GoogleFonts.inter(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFFA0A4B0),
+            height: 1.5,
           ),
         ),
-        const SizedBox(height: 8),
-        _buildInfoTile('User ID', '123456789'),
-        _buildInfoTile('Date of Birth', 'October 2, 2025'),
-        _buildInfoTile('Phone Number', '+62 851 6767 9900'),
-        _buildInfoTile('Email', 'marissa.edwards@example.com'),
-        _buildInfoTile('Gender', 'Female'),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("User ID"),
+              Expanded(
+                child: Text(
+                  "67776",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(
+            Icons.copy_all_rounded,
+            size: 20,
+            color: Color(0xFF7743DB),
+          ),
+          onTap: () {},
+        ),
+        Divider(height: 1),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Date of Birth"),
+              Expanded(
+                child: Text(
+                  "12 June 1994",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.info, size: 20, color: Color(0xFF7743DB)),
+          onTap: () {},
+        ),
+        Divider(height: 1),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Phone Number"),
+              Expanded(
+                child: Text(
+                  "+62 851 6767 9900",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {},
+        ),
+        Divider(height: 1),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Email"),
+              Expanded(
+                child: Text(
+                  "marrisaedward@gmail.com",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {},
+        ),
+        Divider(height: 1),
+        ListTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Gender"),
+              Expanded(
+                child: Text(
+                  "Male",
+                  textAlign: TextAlign.end,
+                  overflow:
+                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          onTap: () {},
+        ),
+        Divider(height: 1),
       ],
     );
   }
