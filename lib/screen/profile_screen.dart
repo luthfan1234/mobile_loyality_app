@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             )
-            .toList(),
+            ,
       ],
     );
   }
