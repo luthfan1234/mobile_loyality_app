@@ -33,16 +33,23 @@ class AccountInformationScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'PROFILE',
-          style: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFFA0A4B0),
-            height: 1.5,
+        // Header Profile
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            'PROFILE',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFA0A4B0),
+              height: 1.5,
+            ),
           ),
         ),
+
         const SizedBox(height: 16),
+
+        // Ganti foto profil
         ListTile(
           leading: const CircleAvatar(
             radius: 30,
@@ -57,9 +64,10 @@ class AccountInformationScreen extends StatelessWidget {
             ),
           ),
         ),
+
+        // Full Name
         ListTile(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Full Name",
@@ -70,12 +78,13 @@ class AccountInformationScreen extends StatelessWidget {
                   height: 1.5,
                 ),
               ),
-              Expanded(
+              const Spacer(),
+              Flexible(
                 child: Text(
                   "Marissa Edwards",
                   textAlign: TextAlign.end,
                   overflow:
-                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                      TextOverflow.ellipsis, // biar auto potong kalau panjang
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     color: Color(0xFF475467),
@@ -86,13 +95,15 @@ class AccountInformationScreen extends StatelessWidget {
               ),
             ],
           ),
-          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
           onTap: () {},
         ),
-        Divider(height: 1),
+
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
+
+        // Username
         ListTile(
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Username",
@@ -103,12 +114,12 @@ class AccountInformationScreen extends StatelessWidget {
                   height: 1.5,
                 ),
               ),
-              Expanded(
+              const Spacer(),
+              Flexible(
                 child: Text(
-                  "Marissa Edwards",
+                  "marissa123",
                   textAlign: TextAlign.end,
-                  overflow:
-                      TextOverflow.ellipsis, // biar kalau panjang auto potong
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     color: Color(0xFF475467),
@@ -119,10 +130,11 @@ class AccountInformationScreen extends StatelessWidget {
               ),
             ],
           ),
-          trailing: Icon(Icons.arrow_forward_ios, size: 16),
+          trailing: const Icon(Icons.arrow_forward_ios, size: 16),
           onTap: () {},
         ),
-        Divider(height: 1),
+
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
       ],
     );
   }
@@ -131,27 +143,43 @@ class AccountInformationScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'PERSONAL INFO',
-          style: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFFA0A4B0),
-            height: 1.5,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            'PERSONAL INFO',
+            style: GoogleFonts.inter(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFA0A4B0),
+              height: 1.5,
+            ),
           ),
         ),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("User ID"),
+              Text(
+                "User ID",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Color(0xFF475467),
+                  height: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Expanded(
                 child: Text(
                   "67776",
                   textAlign: TextAlign.end,
                   overflow:
                       TextOverflow.ellipsis, // biar kalau panjang auto potong
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -163,19 +191,32 @@ class AccountInformationScreen extends StatelessWidget {
           ),
           onTap: () {},
         ),
-        Divider(height: 1),
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Date of Birth"),
+              Text(
+                "Date of Birth",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Color(0xFF475467),
+                  height: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Expanded(
                 child: Text(
                   "12 June 1994",
                   textAlign: TextAlign.end,
                   overflow:
                       TextOverflow.ellipsis, // biar kalau panjang auto potong
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -183,19 +224,32 @@ class AccountInformationScreen extends StatelessWidget {
           trailing: Icon(Icons.info, size: 20, color: Color(0xFF7743DB)),
           onTap: () {},
         ),
-        Divider(height: 1),
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Phone Number"),
+              Text(
+                "Phone Number",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Color(0xFF475467),
+                  height: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Expanded(
                 child: Text(
                   "+62 851 6767 9900",
                   textAlign: TextAlign.end,
                   overflow:
                       TextOverflow.ellipsis, // biar kalau panjang auto potong
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -203,19 +257,32 @@ class AccountInformationScreen extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
           onTap: () {},
         ),
-        Divider(height: 1),
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Email"),
+              Text(
+                "Email",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Color(0xFF475467),
+                  height: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Expanded(
                 child: Text(
                   "marrisaedward@gmail.com",
                   textAlign: TextAlign.end,
                   overflow:
                       TextOverflow.ellipsis, // biar kalau panjang auto potong
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -223,19 +290,32 @@ class AccountInformationScreen extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
           onTap: () {},
         ),
-        Divider(height: 1),
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Gender"),
+              Text(
+                "Gender",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: Color(0xFF475467),
+                  height: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Expanded(
                 child: Text(
                   "Male",
                   textAlign: TextAlign.end,
                   overflow:
                       TextOverflow.ellipsis, // biar kalau panjang auto potong
-                  style: TextStyle(color: Colors.grey[600]),
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: Color(0xFF475467),
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -243,7 +323,7 @@ class AccountInformationScreen extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios, size: 16),
           onTap: () {},
         ),
-        Divider(height: 1),
+        const Divider(height: 1, color: Color(0xFFF2F4F7)),
       ],
     );
   }
