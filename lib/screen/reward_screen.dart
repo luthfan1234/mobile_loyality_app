@@ -196,7 +196,7 @@ Widget _buildDiscountCard(int index) {
                   topRight: Radius.circular(12),
                 ),
                 child: Image.asset(
-                  'assets/images/discount${(index % 3) + 1}.png',
+                  'assets/images/discount${(index % 6) + 1}.png',
                   height: 120,
                   fit: BoxFit.cover,
                 ),
@@ -259,7 +259,7 @@ Widget _buildDiscountCard(int index) {
       )
       .animate()
       .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-      .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+      .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
 }
 
 // ignore: camel_case_types
