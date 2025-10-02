@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class MissionScreen extends StatelessWidget {
   const MissionScreen({super.key});
@@ -14,6 +15,6 @@ class MissionScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-    );
+    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic);
   }
 }
