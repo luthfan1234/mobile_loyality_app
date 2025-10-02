@@ -18,7 +18,6 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override
@@ -29,54 +28,109 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(),
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
-            SafeArea(
-              child: Column(
+            _buildAppBar(context),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/voucher_detail.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '25% discount voucher',
+                      style: GoogleFonts.inter(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      '2.500 points',
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFFFCB351),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 11),
+            TabBar(
+              controller: _tabController,
+              tabs: const [
+                Tab(text: 'Detail'),
+                Tab(text: 'Term Condition'),
+              ],
+              indicatorColor: const Color(0xFF7743DB),
+              indicatorWeight: 3.0,
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelColor: const Color(0xFF7743DB),
+              unselectedLabelColor: const Color(0xFF475467),
+              labelStyle: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+              unselectedLabelStyle: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
                 children: [
+                  // Detail Tab
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: _buildAppBar(context),
-                  ),
-                  const SizedBox(height: 20),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        'assets/images/voucher_detail.png',
-                        fit: BoxFit.cover,
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      "Sure thing! Your \"25% discount voucher\" is a fabulous \noffer that allows you to enjoy a quarter off the regular \nprice on selected items or services. \n  \nThis voucher is your ticket to some sweet savings—\nwhether you're treating yourself or snagging a great deal \nfor someone special. \n \nHappy shopping!",
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF475467),
+                        height: 1.4,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                  // Term Condition Tab
+                  const Padding(
+                    padding: EdgeInsets.all(20.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '25% discount voucher',
-                            style: GoogleFonts.inter(
+                            'Terms and Conditions',
+                            style: TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            '2.500 points',
-                            style: GoogleFonts.inter(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFFFCB351),
-                            ),
-                          ),
+                          SizedBox(height: 10),
+                          Text('1. Voucher is valid for one-time use only.'),
+                          SizedBox(height: 5),
+                          Text('2. Voucher cannot be exchanged for cash.'),
+                          SizedBox(height: 5),
+                          Text('3. Voucher is valid until 31 December 2025.'),
                         ],
                       ),
                     ),
@@ -92,38 +146,30 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
 }
 
 Widget _buildAppBar(BuildContext context) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      // Row 1: AppBar
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            iconSize: 24,
-            color: Colors.black,
-            onPressed: () => Navigator.pop(context),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  'Voucher Detail',
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    decoration: TextDecoration.none,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.arrow_back),
+          iconSize: 24,
+          color: Colors.black,
+          onPressed: () => Navigator.pop(context),
+        ),
+        Expanded(
+          child: Text(
+            'Voucher Detail',
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
+            textAlign: TextAlign.center,
           ),
-          const SizedBox(width: 48),
-        ],
-      ),
-    ],
+        ),
+        const SizedBox(width: 48), // To balance the back button
+      ],
+    ),
   );
 }
