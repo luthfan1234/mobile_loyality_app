@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
   Widget _Scrollable_Contain(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 80),
+      margin: const EdgeInsets.only(top: 100),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -67,19 +67,127 @@ class ProfileScreen extends StatelessWidget {
 // ignore: camel_case_types
 class _Link_Group extends StatelessWidget {
   const _Link_Group();
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 100,
-      margin: const EdgeInsets.symmetric(horizontal: 0),
-      decoration: BoxDecoration(
-        // ignore: deprecated_member_use
-        color: Color(0xFFE4D9F8),
-        borderRadius: const BorderRadius.only(
+      height: 111,
+      decoration: const BoxDecoration(
+        color: Color(0xFFE4D9F8), // background ungu muda
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+        child: Container(
+          width: 369,
+          height: 65,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              // Bagian kiri (Gold Membership)
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/icons/tier_membership2.png',
+                      width: 38,
+                      height: 38,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Gold',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFD69400),
+                            height: 1.5,
+                          ),
+                        ),
+                        Text(
+                          'Membership',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFFA0A4B0),
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: Color(0xFFA0A4B0),
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+
+              // Garis pemisah
+              Container(
+                width: 2,
+                height: 41,
+                color: Color(0xFF475467).withOpacity(0.1),
+              ),
+
+              // Bagian kanan (Points)
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/icons/point.png',
+                      width: 48,
+                      height: 48,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          '1.200',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFD69400),
+                            height: 1.5,
+                          ),
+                        ),
+                        Text(
+                          'Points',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFFA0A4B0),
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: Color(0xFFA0A4B0),
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
