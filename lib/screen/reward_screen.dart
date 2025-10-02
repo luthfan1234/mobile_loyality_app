@@ -14,21 +14,25 @@ class RewardScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: Column(
-        children: [
-          const _HeaderSection(),
-          const SizedBox(height: 24),
-          Expanded(
-            child: Stack(
-              children: [
-                const _Link_Group(),
-                _Scrollable_Contain(context),
-              ],
-            ),
-          ),
-        ],
-      ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(
-          begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+      child:
+          Column(
+                children: [
+                  const SizedBox(height: 90),
+                  _buildAppBar(context),
+                  const SizedBox(height: 24),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        const _Link_Group(),
+                        _Scrollable_Contain(context),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+              .animate()
+              .fadeIn(duration: 600.ms, delay: 200.ms)
+              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
     );
   }
 
@@ -122,28 +126,85 @@ class _Link_Group extends StatelessWidget {
   }
 }
 
-// Separate widget to prevent unnecessary rebuilds
-class _HeaderSection extends StatelessWidget {
-  const _HeaderSection();
+Widget _buildAppBar(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Left: Icon + "1.200 Points"
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/icons/point.png', width: 48, height: 48),
+                const SizedBox(width: 4),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '1.200',
+                          style: GoogleFonts.inter(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Points',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.info_outline,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 87, left: 20, right: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Hi, Marissa Edward',
-            style: GoogleFonts.inter(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFFE4D9F8),
+                    // Row 3: Expiring text
+                    Text(
+                      '200 points expiring on 31/12/2023',
+                      style: GoogleFonts.inter(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        // ignore: deprecated_member_use
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-          const Icon(Icons.notifications, color: Color(0xFFE4D9F8), size: 24),
-        ],
+
+            // Right: Link
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                'Point history',
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
+    ],
+  );
 }
