@@ -9,6 +9,8 @@ import '../utils/page_route_animation.dart';
 import 'mission_screen.dart';
 import 'profile_screen.dart';
 
+import 'package:flutter_application_2/screen/scan_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -128,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (index) {
               if (index == 2) {
                 // Handle scan button tap
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ScanScreen()));
               } else {
                 _pageController.jumpToPage(index);
               }
@@ -156,40 +159,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
         Positioned(
           bottom: 40,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 64,
-                height: 64,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF7743DB),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      // ignore: deprecated_member_use
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ScanScreen()));
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF7743DB),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        // ignore: deprecated_member_use
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.qr_code_scanner,
+                    color: Colors.white,
+                    size: 32,
+                  ),
                 ),
-                child: const Icon(
-                  Icons.qr_code_scanner,
-                  color: Colors.white,
-                  size: 32,
+                const SizedBox(height: 4),
+                Text(
+                  'Scan',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Scan',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
