@@ -423,9 +423,12 @@ class HomeScreenBody extends StatelessWidget {
         _buildSectionHeader('Redeem Your Points'),
         const SizedBox(height: 8),
         SizedBox(
-          height: 196,
+          height: 210, // Increased height to accommodate shadow
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(
+              bottom: 14,
+            ), // Add bottom padding for shadow
             itemCount: 3,
             itemBuilder: (context, index) => _buildDiscountCard(index),
           ),
@@ -475,9 +478,12 @@ class HomeScreenBody extends StatelessWidget {
               BoxShadow(
                 // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.15),
-                blurRadius: 2,
+                blurRadius: 8, // Increased blur radius for better shadow
                 spreadRadius: 0,
-                offset: const Offset(1, 0),
+                offset: const Offset(
+                  0,
+                  4,
+                ), // Changed offset for better shadow position
               ),
             ],
           ),
