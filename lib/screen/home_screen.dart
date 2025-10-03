@@ -268,9 +268,9 @@ class HomeScreenBody extends StatelessWidget {
                 _buildPromoSection(context),
                 const SizedBox(height: 20),
                 _buildCurrentMissionsSection(),
-                const SizedBox(height: 22),
+                const SizedBox(height: 20),
                 _buildRedeemPointsSection(),
-                const SizedBox(height: 24),
+                const SizedBox(height: 8),
                 _buildJoinChallengeHeader(),
               ],
             ),
@@ -558,7 +558,7 @@ class HomeScreenBody extends StatelessWidget {
           ),
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 50),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -581,7 +581,7 @@ class HomeScreenBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 40),
+            padding: const EdgeInsets.only(top: 22),
             child: Text(
               "Complete\nMissions to \nGet Points",
               style: GoogleFonts.inter(
@@ -608,7 +608,7 @@ class HomeScreenBody extends StatelessWidget {
                 "Learn More",
                 style: GoogleFonts.inter(
                   color: const Color(0xFFE4D9F8),
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
               ),
