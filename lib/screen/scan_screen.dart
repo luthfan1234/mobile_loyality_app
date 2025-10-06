@@ -179,7 +179,7 @@ class _ScanScreenState extends State<ScanScreen> {
 
           // Label above the scan area
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.28,
+            top: MediaQuery.of(context).size.height * 0.26,
             left: 0,
             right: 0,
             child: Center(
@@ -216,10 +216,15 @@ class _ScanScreenState extends State<ScanScreen> {
             bottom: 0,
             child: GestureDetector(
               onTap: () async {
-                // Navigate to the screen that shows the user's QR/Barcode
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (_) => const ShowQrScreen()));
+                // Navigate instantly (no transition) to ShowQrScreen
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const ShowQrScreen(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  ),
+                );
               },
               child: Container(
                 width: double.infinity,
