@@ -423,7 +423,7 @@ class HomeScreenBody extends StatelessWidget {
         _buildSectionHeader('Redeem Your Points'),
         const SizedBox(height: 8),
         SizedBox(
-          height: 210, // Increased height to accommodate shadow
+          height: 204, // Increased height to accommodate shadow
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.only(

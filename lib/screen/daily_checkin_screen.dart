@@ -578,6 +578,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                   height: 204,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     itemCount: 3,
                     itemBuilder: (context, index) =>
                         Container(
