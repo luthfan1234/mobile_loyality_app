@@ -16,6 +16,22 @@ class _DailyCheckinState extends State<DailyCheckin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          'Daily Checkin',
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            height: 1.5,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
       body: Container(
         color: Colors.white,
         child: Column(
@@ -25,20 +41,9 @@ class _DailyCheckinState extends State<DailyCheckin> {
                 Image.asset('assets/images/daily.png'),
                 Column(
                   children: [
+                    const SizedBox(height: 100),
                     Padding(
-                          padding: const EdgeInsets.only(top: 70),
-                          child: _buildAppBar(context),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms)
-                        .slideY(
-                          begin: -0.3,
-                          end: 0,
-                          curve: Curves.easeOutCubic,
-                        ),
-                    const SizedBox(height: 16),
-                    Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: _buildDailyCheckinCard(),
                         )
                         .animate()
@@ -59,31 +64,6 @@ class _DailyCheckinState extends State<DailyCheckin> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildAppBar(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.arrow_back),
-          iconSize: 24,
-          onPressed: () => Navigator.pop(context),
-        ),
-        Expanded(
-          child: Text(
-            'Daily Checkin',
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-              decoration: TextDecoration.none,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(width: 48),
-      ],
     );
   }
 
@@ -298,14 +278,28 @@ class _DailyCheckinState extends State<DailyCheckin> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Current Missions',
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1D1D1D),
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      'Another Way to Get Points',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF1D1D1D),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      'See All',
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF7743DB),
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 12),
                 Column(
@@ -402,7 +396,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(width: 18),
+                                                const SizedBox(width: 6),
                                                 Text(
                                                   '${1 + index} of 7',
                                                   style: GoogleFonts.inter(
@@ -524,7 +518,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(width: 18),
+                                                const SizedBox(width: 4),
                                                 Text(
                                                   '${3 + index} of 7',
                                                   style: GoogleFonts.inter(
