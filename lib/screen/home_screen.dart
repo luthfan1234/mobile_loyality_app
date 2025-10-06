@@ -322,7 +322,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 const SizedBox(height: 20),
                 // Section header skeleton (e.g., 'Redeem Your Points')
                 _buildSkeletonCard(200, 20),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 // Redeem horizontal cards skeleton (match actual card proportions)
                 SizedBox(
                   height: 204,
@@ -594,7 +594,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     return Column(
       children: [
         _buildSectionHeader('Redeem Your Points'),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         SizedBox(
           height: 204, // Increased height to accommodate shadow
           child: ListView.builder(
