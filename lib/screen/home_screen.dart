@@ -584,7 +584,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     return Container(
       width: 132,
       height: 196,
-      margin: EdgeInsets.only(left: index == 0 ? 20 : 0, right: 16),
+      margin: EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
