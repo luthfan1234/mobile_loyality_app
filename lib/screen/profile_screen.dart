@@ -32,9 +32,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ],
               )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 200.ms)
-              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+              .animate(),
     );
   }
 

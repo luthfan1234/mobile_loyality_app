@@ -31,9 +31,7 @@ class RewardScreen extends StatelessWidget {
                   ),
                 ],
               )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 200.ms)
-              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+              .animate(),
     );
   }
 
@@ -268,9 +266,7 @@ Widget _buildDiscountCard(int index, BuildContext context) {
           ),
         ),
   )
-      .animate()
-      .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-      .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+      .animate();
 }
 
 // ignore: camel_case_types

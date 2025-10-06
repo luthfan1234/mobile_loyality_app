@@ -10,6 +10,7 @@ import 'mission_screen.dart';
 import 'profile_screen.dart';
 
 import 'package:flutter_application_2/screen/scan_screen.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -212,8 +213,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomeScreenBody extends StatelessWidget {
+class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
+
+  @override
+  State<HomeScreenBody> createState() => _HomeScreenBodyState();
+}
+
+class _HomeScreenBodyState extends State<HomeScreenBody> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,24 +244,109 @@ class HomeScreenBody extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child:
-          Column(
-                children: [
-                  const _HeaderSection(),
-                  const SizedBox(height: 24),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        const _Link_Group(),
-                        _Scrollable_Contain(context),
-                      ],
+      child: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Column(
+      children: [
+        const _HeaderSection(),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(),
+              _Scrollable_Contain(context),
+            ],
+          ),
+        ),
+      ],
+    ).animate();
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Column(
+      children: [
+        const _HeaderSection(), // Assuming header is static and doesn't need shimmer
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(), // Assuming link group is static
+              _buildSkeletonScrollableContent(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkeletonScrollableContent() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 50),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSkeletonCard(double.infinity, 150),
+                const SizedBox(height: 20),
+                _buildSkeletonCard(150, 20),
+                const SizedBox(height: 10),
+                Row(
+                  children: List.generate(2, (index) => Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: index == 0 ? 0 : 8, right: index == 1 ? 0 : 8),
+                      child: _buildSkeletonCard(double.infinity, 134),
+                    ),
+                  )),
+                ),
+                const SizedBox(height: 20),
+                _buildSkeletonCard(200, 20),
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 204,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(left: index == 0 ? 20 : 0, right: 16),
+                      child: _buildSkeletonCard(132, 196),
                     ),
                   ),
-                ],
-              )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 200.ms)
-              .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
     );
   }
 
@@ -534,10 +639,7 @@ class HomeScreenBody extends StatelessWidget {
               ),
             ],
           ),
-        )
-        .animate()
-        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-        .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+        ).animate();
   }
 
   Widget _buildJoinChallengeHeader() {
@@ -712,9 +814,7 @@ class HomeScreenBody extends StatelessWidget {
             ),
           ),
         )
-        .animate()
-        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-        .slideX(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+        .animate();
   }
 }
 

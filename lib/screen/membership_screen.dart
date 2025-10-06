@@ -506,7 +506,7 @@ class MembershipScreen extends StatelessWidget {
   Widget _buildDailyCheckinCard() {
     return Container(
       height: 180,
-      width: 380,
+      width: 370,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
