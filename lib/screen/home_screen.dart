@@ -320,19 +320,18 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // Section header skeleton (e.g., 'Redeem Your Points')
                 _buildSkeletonCard(200, 20),
                 const SizedBox(height: 8),
+                // Redeem horizontal cards skeleton (match actual card proportions)
                 SizedBox(
                   height: 204,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 3,
                     itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(
-                        left: index == 0 ? 20 : 0,
-                        right: 16,
-                      ),
-                      child: _buildSkeletonCard(132, 196),
+                      padding: EdgeInsets.only(left: 0, right: 16),
+                      child: _buildSkeletonDiscountCard(132, 196),
                     ),
                   ),
                 ),
@@ -354,6 +353,66 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  // Specialized skeleton for the Redeem 'discount' cards (image on top + text rows)
+  Widget _buildSkeletonDiscountCard(double width, double height) {
+    const double imageHeight = 110;
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // image placeholder
+            Container(
+              width: width,
+              height: imageHeight,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: width * 0.7,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: width * 0.45,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
