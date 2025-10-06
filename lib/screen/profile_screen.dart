@@ -3,9 +3,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_application_2/screen/account_information.dart';
 import 'package:flutter_application_2/utils/page_route_animation.dart';
+import 'package:shimmer/shimmer.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +36,95 @@ class ProfileScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child:
-          Column(
-                children: [
-                  const SizedBox(height: 90),
-                  _buildAppBar(context),
-                  const SizedBox(height: 24),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        const _Link_Group(),
-                        _Scrollable_Contain(context),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-              .animate(),
+      child: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Column(
+      children: [
+        const SizedBox(height: 90),
+        _buildAppBar(context),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(),
+              _Scrollable_Contain(context),
+            ],
+          ),
+        ),
+      ],
+    ).animate();
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Column(
+      children: [
+        const SizedBox(height: 90),
+        _buildAppBar(context),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(),
+              _buildSkeletonScrollableContent(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkeletonScrollableContent() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 100),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
+        children: [
+          _buildSkeletonListSection(),
+          const SizedBox(height: 16),
+          _buildSkeletonListSection(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonListSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSkeletonCard(100, 16),
+        const SizedBox(height: 16),
+        _buildSkeletonCard(double.infinity, 50),
+        const SizedBox(height: 8),
+        _buildSkeletonCard(double.infinity, 50),
+        const SizedBox(height: 8),
+        _buildSkeletonCard(double.infinity, 50),
+      ],
     );
   }
 

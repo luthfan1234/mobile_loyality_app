@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 class VoucherDetailScreen extends StatefulWidget {
   const VoucherDetailScreen({super.key});
@@ -12,12 +13,20 @@ class VoucherDetailScreen extends StatefulWidget {
 class _VoucherDetailScreenState extends State<VoucherDetailScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -30,15 +39,92 @@ class _VoucherDetailScreenState extends State<VoucherDetailScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        child: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+      ),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Column(
+      children: [
+        _buildAppBar(context),
+        const SizedBox(height: 20),
+        _buildVoucherHeader(),
+        const SizedBox(height: 11),
+        _buildTabBar(),
+        _buildTabBarView(),
+        _buildRedeemButton(),
+      ],
+    );
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Column(
+      children: [
+        _buildAppBar(context),
+        const SizedBox(height: 20),
+        _buildSkeletonVoucherHeader(),
+        const SizedBox(height: 11),
+        _buildTabBar(),
+        _buildSkeletonTabBarView(),
+        _buildRedeemButton(),
+      ],
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height, {bool isCircle = false}) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+          borderRadius: isCircle ? null : BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonVoucherHeader() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          _buildSkeletonCard(double.infinity, 200),
+          const SizedBox(height: 24),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSkeletonCard(200, 20),
+                const SizedBox(height: 8),
+                _buildSkeletonCard(100, 16),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonTabBarView() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildAppBar(context),
-            const SizedBox(height: 20),
-            _buildVoucherHeader(),
-            const SizedBox(height: 11),
-            _buildTabBar(),
-            _buildTabBarView(),
-            _buildRedeemButton(),
+            _buildSkeletonCard(double.infinity, 16),
+            const SizedBox(height: 8),
+            _buildSkeletonCard(double.infinity, 16),
+            const SizedBox(height: 8),
+            _buildSkeletonCard(double.infinity, 16),
+            const SizedBox(height: 8),
+            _buildSkeletonCard(150, 16),
           ],
         ),
       ),

@@ -2,9 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/screen/voucher_detail.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:shimmer/shimmer.dart';
 
-class RewardScreen extends StatelessWidget {
+class RewardScreen extends StatefulWidget {
   const RewardScreen({super.key});
+
+  @override
+  State<RewardScreen> createState() => _RewardScreenState();
+}
+
+class _RewardScreenState extends State<RewardScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +35,127 @@ class RewardScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child:
-          Column(
-                children: [
-                  const SizedBox(height: 90),
-                  _buildAppBar(context),
-                  const SizedBox(height: 24),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        const _Link_Group(),
-                        _Scrollable_Contain(context),
-                      ],
+      child: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Column(
+      children: [
+        const SizedBox(height: 90),
+        _buildAppBar(context),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(),
+              _Scrollable_Contain(context),
+            ],
+          ),
+        ),
+      ],
+    ).animate();
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Column(
+      children: [
+        const SizedBox(height: 90),
+        _buildAppBar(context),
+        const SizedBox(height: 24),
+        Expanded(
+          child: Stack(
+            children: [
+              const _Link_Group(),
+              _buildSkeletonScrollableContent(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkeletonScrollableContent() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 50),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildSkeletonCard(297, 48),
                     ),
-                  ),
-                ],
-              )
-              .animate(),
+                    const SizedBox(width: 12),
+                    _buildSkeletonCard(48, 48),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                _buildSkeletonRedeemPointsTab(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonRedeemPointsTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+            const SizedBox(width: 16),
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+            const SizedBox(width: 16),
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+            const SizedBox(width: 16),
+            Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+          ],
+        ),
+      ],
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PointScreen extends StatefulWidget {
   const PointScreen({super.key});
@@ -13,13 +14,20 @@ class PointScreen extends StatefulWidget {
 class _PointScreenState extends State<PointScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -47,75 +55,248 @@ class _PointScreenState extends State<PointScreen>
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 250,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/point.png'),
-                fit: BoxFit.cover,
-              ),
+      body: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 250,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/point.png'),
+              fit: BoxFit.cover,
             ),
           ),
-          SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: _buildPointsDisplay(context),
-                ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        TabBar(
-                          controller: _tabController,
-                          tabs: const [
-                            Tab(text: 'Redeem Points'),
-                            Tab(text: 'Earn Points'),
-                          ],
-                          indicatorColor: const Color(0xFF7743DB),
-                          indicatorWeight: 3.0,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          labelColor: const Color(0xFF7743DB),
-                          unselectedLabelColor: const Color(0xFF475467),
-                          labelStyle: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          unselectedLabelStyle: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Expanded(
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: [
-                              _buildRedeemPointsTab(),
-                              _buildEarnPointsTab(),
-                            ],
-                          ),
-                        ),
-                      ],
+        ),
+        SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                child: _buildPointsDisplay(context),
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
                   ),
+                  child: Column(
+                    children: [
+                      TabBar(
+                        controller: _tabController,
+                        tabs: const [
+                          Tab(text: 'Redeem Points'),
+                          Tab(text: 'Earn Points'),
+                        ],
+                        indicatorColor: const Color(0xFF7743DB),
+                        indicatorWeight: 3.0,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelColor: const Color(0xFF7743DB),
+                        unselectedLabelColor: const Color(0xFF475467),
+                        labelStyle: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        unselectedLabelStyle: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            _buildRedeemPointsTab(),
+                            _buildEarnPointsTab(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 250,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/point.png'),
+              fit: BoxFit.cover,
             ),
           ),
+        ),
+        SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                child: _buildSkeletonPointsDisplay(),
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      TabBar(
+                        controller: _tabController,
+                        tabs: const [
+                          Tab(text: 'Redeem Points'),
+                          Tab(text: 'Earn Points'),
+                        ],
+                        indicatorColor: const Color(0xFF7743DB),
+                        indicatorWeight: 3.0,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelColor: const Color(0xFF7743DB),
+                        unselectedLabelColor: const Color(0xFF475467),
+                        labelStyle: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        unselectedLabelStyle: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: _tabController,
+                          children: [
+                            _buildSkeletonRedeemPointsTab(),
+                            _buildSkeletonEarnPointsTab(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height, {bool isCircle = false}) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+          borderRadius: isCircle ? null : BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonPointsDisplay() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _buildSkeletonCard(48, 48, isCircle: true),
+              const SizedBox(width: 4),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSkeletonCard(100, 20),
+                  const SizedBox(height: 4),
+                  _buildSkeletonCard(150, 12),
+                ],
+              ),
+            ],
+          ),
+          _buildSkeletonCard(80, 16),
         ],
       ),
+    );
+  }
+
+  Widget _buildSkeletonEarnPointsTab() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      itemCount: 6,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+        childAspectRatio: 169 / 166,
+      ),
+      itemBuilder: (context, index) => _buildSkeletonCard(169, 166),
+    );
+  }
+
+  Widget _buildSkeletonRedeemPointsTab() {
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                  const SizedBox(width: 16),
+                  Expanded(child: _buildSkeletonCard(double.infinity, 238)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

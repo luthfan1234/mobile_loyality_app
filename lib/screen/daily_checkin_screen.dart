@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DailyCheckin extends StatefulWidget {
   const DailyCheckin({super.key});
@@ -12,6 +13,19 @@ class DailyCheckin extends StatefulWidget {
 class _DailyCheckinState extends State<DailyCheckin> {
   bool _isCheckedIn = false;
   double _buttonScale = 1.0;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,37 +46,159 @@ class _DailyCheckinState extends State<DailyCheckin> {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: Container(
+      body: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+    );
+  }
+
+  Widget _buildActualContent() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.asset('assets/images/daily.png'),
+              Column(
+                children: [
+                  const SizedBox(height: 100),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: _buildDailyCheckinCard(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Expanded(child: _buildScrollableContent(context)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoadingSkeleton() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.asset('assets/images/daily.png'),
+              Column(
+                children: [
+                  const SizedBox(height: 100),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: _buildSkeletonCard(390, 250),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Expanded(child: _buildSkeletonScrollableContent()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard(double width, double height) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonScrollableContent() {
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
         color: Colors.white,
-        child: Column(
-          children: [
-            Stack(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset('assets/images/daily.png'),
+                Row(
+                  children: [
+                    _buildSkeletonCard(200, 20),
+                    const Spacer(),
+                    _buildSkeletonCard(50, 20),
+                  ],
+                ),
+                const SizedBox(height: 12),
                 Column(
                   children: [
-                    const SizedBox(height: 100),
-                    Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: _buildDailyCheckinCard(),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms, delay: 200.ms)
-                        .slideY(
-                          begin: -0.3,
-                          end: 0,
-                          curve: Curves.easeOutCubic,
+                    Row(
+                      children: List.generate(
+                        2,
+                        (index) => Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0 ? 0 : 8,
+                              right: index == 1 ? 0 : 8,
+                            ),
+                            child: _buildSkeletonCard(double.infinity, 134),
+                          ),
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: List.generate(
+                        2,
+                        (index) => Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0 ? 0 : 8,
+                              right: index == 1 ? 0 : 8,
+                            ),
+                            child: _buildSkeletonCard(double.infinity, 134),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
+                ),
+                const SizedBox(height: 22),
+                Row(
+                  children: [
+                    _buildSkeletonCard(150, 20),
+                    const Spacer(),
+                    _buildSkeletonCard(50, 20),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 204,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    itemCount: 3,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: _buildSkeletonCard(132, 196),
+                    ),
+                  ),
                 ),
               ],
             ),
-            Expanded(child: _buildScrollableContent(context))
-                .animate()
-                .fadeIn(duration: 600.ms, delay: 200.ms)
-                .slideY(begin: 0.3, end: 0, curve: Curves.easeOutCubic),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -139,34 +275,31 @@ class _DailyCheckinState extends State<DailyCheckin> {
     bool isToday = index == 4;
 
     return Column(
-          children: [
-            Container(
-              width: 42.42856979370117,
-              height: 52,
-              decoration: _getDayContainerDecoration(isChecked, isToday),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/icons/check.png', width: 24, height: 24),
-                  Text(
-                    isToday ? 'Today' : 'Day ${index + 1}',
-                    style: GoogleFonts.inter(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: isChecked || isToday
-                          ? const Color(0xFFD69400)
-                          : Colors.black,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ],
+      children: [
+        Container(
+          width: 42.42856979370117,
+          height: 52,
+          decoration: _getDayContainerDecoration(isChecked, isToday),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/icons/check.png', width: 24, height: 24),
+              Text(
+                isToday ? 'Today' : 'Day ${index + 1}',
+                style: GoogleFonts.inter(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  color: isChecked || isToday
+                      ? const Color(0xFFD69400)
+                      : Colors.black,
+                  decoration: TextDecoration.none,
+                ),
               ),
-            ),
-          ],
-        )
-        .animate()
-        .fadeIn(duration: 500.ms, delay: (100 * index).ms)
-        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   BoxDecoration _getDayContainerDecoration(bool isChecked, bool isToday) {
@@ -653,13 +786,6 @@ class _DailyCheckinState extends State<DailyCheckin> {
                                   ),
                                 ],
                               ),
-                            )
-                            .animate()
-                            .fadeIn(duration: 500.ms, delay: (150 * index).ms)
-                            .slideX(
-                              begin: 0.5,
-                              end: 0,
-                              curve: Curves.easeOutCubic,
                             ),
                   ),
                 ),
