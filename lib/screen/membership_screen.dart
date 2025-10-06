@@ -4,8 +4,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shimmer/shimmer.dart';
 
-class MembershipScreen extends StatelessWidget {
+class MembershipScreen extends StatefulWidget {
   const MembershipScreen({super.key});
+
+  @override
+  State<MembershipScreen> createState() => _MembershipScreenState();
+}
+
+class _MembershipScreenState extends State<MembershipScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Simulate loading like other screens
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -27,25 +48,29 @@ class MembershipScreen extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Stack(
-        children: [
-          Image.asset(
-            'assets/images/membership.png',
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          Column(
-            children: [
-              const SizedBox(
-                height: 114,
-              ), // spasi biar konten tidak ketutupan gambar
-              _buildDailyCheckinCard().animate().fadeIn(duration: 500.ms),
-              const SizedBox(height: 32),
-              Expanded(child: _buildTabBar()),
-            ],
-          ),
-        ],
-      ),
+      body: _isLoading ? _buildLoadingSkeleton() : _buildContent(),
+    );
+  }
+
+  Widget _buildContent() {
+    return Stack(
+      children: [
+        Image.asset(
+          'assets/images/membership.png',
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        Column(
+          children: [
+            const SizedBox(
+              height: 114,
+            ), // spasi biar konten tidak ketutupan gambar
+            _buildDailyCheckinCard().animate().fadeIn(duration: 500.ms),
+            const SizedBox(height: 32),
+            Expanded(child: _buildTabBar()),
+          ],
+        ),
+      ],
     );
   }
 
@@ -668,4 +693,76 @@ class MembershipScreen extends StatelessWidget {
       ],
     );
   }
+}
+
+// Loading skeletons
+Widget _buildLoadingSkeleton() {
+  return Stack(
+    children: [
+      Image.asset(
+        'assets/images/membership.png',
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
+      Column(
+        children: [
+          const SizedBox(height: 114),
+          // skeleton card
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: _buildSkeletonCard(double.infinity, 180),
+          ),
+          const SizedBox(height: 32),
+          // skeleton tab area
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
+                children: [
+                  _buildSkeletonCard(150, 20),
+                  const SizedBox(height: 16),
+                  for (int i = 0; i < 3; i++) ...[
+                    Row(
+                      children: [
+                        _buildSkeletonCard(48, 48, isCircle: true),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildSkeletonCard(double.infinity, 48),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget _buildSkeletonCard(
+  double width,
+  double height, {
+  bool isCircle = false,
+}) {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
+    child: Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+        borderRadius: isCircle ? null : BorderRadius.circular(12),
+      ),
+    ),
+  );
 }

@@ -28,7 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showWelcomeDialog(context);
+      // Delay the welcome popup slightly so it doesn't appear too quickly
+      Future.delayed(const Duration(seconds: 2), () {
+        if (mounted) _showWelcomeDialog(context);
+      });
     });
   }
 
@@ -255,10 +258,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         const SizedBox(height: 24),
         Expanded(
           child: Stack(
-            children: [
-              const _Link_Group(),
-              _Scrollable_Contain(context),
-            ],
+            children: [const _Link_Group(), _Scrollable_Contain(context)],
           ),
         ),
       ],
@@ -306,12 +306,18 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 _buildSkeletonCard(150, 20),
                 const SizedBox(height: 10),
                 Row(
-                  children: List.generate(2, (index) => Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: index == 0 ? 0 : 8, right: index == 1 ? 0 : 8),
-                      child: _buildSkeletonCard(double.infinity, 134),
+                  children: List.generate(
+                    2,
+                    (index) => Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: index == 0 ? 0 : 8,
+                          right: index == 1 ? 0 : 8,
+                        ),
+                        child: _buildSkeletonCard(double.infinity, 134),
+                      ),
                     ),
-                  )),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 _buildSkeletonCard(200, 20),
@@ -322,7 +328,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     scrollDirection: Axis.horizontal,
                     itemCount: 3,
                     itemBuilder: (context, index) => Padding(
-                      padding: EdgeInsets.only(left: index == 0 ? 20 : 0, right: 16),
+                      padding: EdgeInsets.only(
+                        left: index == 0 ? 20 : 0,
+                        right: 16,
+                      ),
                       child: _buildSkeletonCard(132, 196),
                     ),
                   ),
@@ -573,73 +582,73 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     final List<String> points = ['1000', '2500', '3000'];
 
     return Container(
-          width: 132,
-          height: 196,
-          margin: EdgeInsets.only(left: index == 0 ? 20 : 0, right: 16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                // ignore: deprecated_member_use
-                color: Colors.black.withOpacity(0.15),
-                blurRadius: 8, // Increased blur radius for better shadow
-                spreadRadius: 0,
-                offset: const Offset(
-                  0,
-                  4,
-                ), // Changed offset for better shadow position
-              ),
-            ],
+      width: 132,
+      height: 196,
+      margin: EdgeInsets.only(left: index == 0 ? 20 : 0, right: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 8, // Increased blur radius for better shadow
+            spreadRadius: 0,
+            offset: const Offset(
+              0,
+              4,
+            ), // Changed offset for better shadow position
           ),
-          child: Stack(
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                  child: Image.asset(
-                    'assets/images/discount${index + 1}.png',
-                    fit: BoxFit.cover,
+        ],
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              child: Image.asset(
+                'assets/images/discount${index + 1}.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 110,
+            left: 12,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${discounts[index]} discount \nvoucher',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    height: 1.5,
                   ),
                 ),
-              ),
-              Positioned(
-                top: 110,
-                left: 12,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${discounts[index]} discount \nvoucher',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        height: 1.5,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '${points[index]} points',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFFFCB351),
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 8),
+                Text(
+                  '${points[index]} points',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFFFCB351),
+                    height: 1.5,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ).animate();
+        ],
+      ),
+    ).animate();
   }
 
   Widget _buildJoinChallengeHeader() {
@@ -743,78 +752,74 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     ];
 
     return Container(
-          width: 167,
-          height: 156,
-          margin: EdgeInsets.only(left: index == 0 ? 0 : 16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                // ignore: deprecated_member_use
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
+      width: 167,
+      height: 156,
+      margin: EdgeInsets.only(left: index == 0 ? 0 : 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            // ignore: deprecated_member_use
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF4E6),
+                borderRadius: BorderRadius.circular(12),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF4E6),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    "+500 points",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFFCB351),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                    ),
-                  ),
+              child: Text(
+                "+500 points",
+                style: GoogleFonts.inter(
+                  color: const Color(0xFFFCB351),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  challenges[index],
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const Spacer(),
-                OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFF7743DB), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    minimumSize: const Size(143, 32),
-                  ),
-                  child: Text(
-                    "Join Mission",
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFF7743DB),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        )
-        .animate();
+            const SizedBox(height: 12),
+            Text(
+              challenges[index],
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
+            const Spacer(),
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Color(0xFF7743DB), width: 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                minimumSize: const Size(143, 32),
+              ),
+              child: Text(
+                "Join Mission",
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF7743DB),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ).animate();
   }
 }
 
