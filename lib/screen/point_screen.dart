@@ -31,6 +31,22 @@ class _PointScreenState extends State<PointScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          'My Points',
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            height: 1.5,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body: Stack(
         children: [
           Container(
@@ -48,7 +64,7 @@ class _PointScreenState extends State<PointScreen>
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: _buildAppBar(context),
+                  child: _buildPointsDisplay(context),
                 ),
                 Expanded(
                   child: Container(
@@ -103,118 +119,80 @@ class _PointScreenState extends State<PointScreen>
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Row 1: AppBar
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              iconSize: 24,
-              color: Colors.white,
-              onPressed: () => Navigator.pop(context),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'My Points',
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 48),
-          ],
-        ),
-        const SizedBox(height: 12),
-
-        // Row 2: Points + Link
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildPointsDisplay(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Left: Icon + "1.200 Points"
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Left: Icon + "1.200 Points"
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Image.asset('assets/icons/point.png', width: 48, height: 48),
+              const SizedBox(width: 4),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset('assets/icons/point.png', width: 48, height: 48),
-                  const SizedBox(width: 4),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '1.200',
-                            style: GoogleFonts.inter(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            'Points',
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          const Icon(
-                            Icons.info_outline,
-                            size: 16,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-
-                      // Row 3: Expiring text
                       Text(
-                        '200 points expiring on 31/12/2023',
+                        '1.200',
                         style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          // ignore: deprecated_member_use
-                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Points',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.info_outline,
+                        size: 16,
+                        color: Colors.white,
                       ),
                     ],
                   ),
-                ],
-              ),
 
-              // Right: Link
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  'Point history',
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
+                  // Row 3: Expiring text
+                  Text(
+                    '200 points expiring on 31/12/2023',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      // ignore: deprecated_member_use
+                      color: Colors.white.withOpacity(0.9),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
-        ),
-      ],
+
+          // Right: Link
+          GestureDetector(
+            onTap: () {},
+            child: Text(
+              'Point history',
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -430,9 +408,9 @@ class _PointScreenState extends State<PointScreen>
                         height: 1.3,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Container(
-                      width: 160,
+                      width: 143,
                       height: 32,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -441,7 +419,7 @@ class _PointScreenState extends State<PointScreen>
                           width: 1,
                         ),
                         color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(60),
                       ),
                       child: Center(
                         child: Text(
