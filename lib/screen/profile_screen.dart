@@ -237,7 +237,7 @@ class _Link_Group extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 111,
+      height: 115,
       decoration: const BoxDecoration(
         color: Color(0xFFE4D9F8),
         borderRadius: BorderRadius.only(
@@ -246,7 +246,7 @@ class _Link_Group extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 26),
         child: Container(
           width: 369,
           height: 65,
