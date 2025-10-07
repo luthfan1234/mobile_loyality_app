@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 
 class AccountInformationScreen extends StatefulWidget {
   const AccountInformationScreen({super.key});
@@ -11,20 +10,6 @@ class AccountInformationScreen extends StatefulWidget {
 }
 
 class _AccountInformationScreenState extends State<AccountInformationScreen> {
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +24,7 @@ class _AccountInformationScreenState extends State<AccountInformationScreen> {
         ),
         centerTitle: true,
       ),
-      body: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+      body: _buildActualContent(),
     );
   }
 
@@ -50,70 +35,6 @@ class _AccountInformationScreenState extends State<AccountInformationScreen> {
         _buildProfileSection(),
         const SizedBox(height: 24),
         _buildPersonalInfoSection(),
-      ],
-    );
-  }
-
-  Widget _buildLoadingSkeleton() {
-    return ListView(
-      padding: const EdgeInsets.all(16.0),
-      children: [
-        _buildSkeletonProfileSection(),
-        const SizedBox(height: 24),
-        _buildSkeletonPersonalInfoSection(),
-      ],
-    );
-  }
-
-  Widget _buildSkeletonCard(double width, double height, {bool isCircle = false}) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-          borderRadius: isCircle ? null : BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSkeletonProfileSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSkeletonCard(100, 16),
-        const SizedBox(height: 16),
-        ListTile(
-          leading: _buildSkeletonCard(60, 60, isCircle: true),
-          title: _buildSkeletonCard(150, 16),
-        ),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-      ],
-    );
-  }
-
-  Widget _buildSkeletonPersonalInfoSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSkeletonCard(150, 16),
-        const SizedBox(height: 16),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
       ],
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:shimmer/shimmer.dart';
 
 class DailyCheckin extends StatefulWidget {
   const DailyCheckin({super.key});
@@ -13,19 +12,6 @@ class DailyCheckin extends StatefulWidget {
 class _DailyCheckinState extends State<DailyCheckin> {
   bool _isCheckedIn = false;
   double _buttonScale = 1.0;
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +32,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: _isLoading ? _buildLoadingSkeleton() : _buildActualContent(),
+      body: _buildActualContent(),
     );
   }
 
@@ -75,134 +61,7 @@ class _DailyCheckinState extends State<DailyCheckin> {
     );
   }
 
-  Widget _buildLoadingSkeleton() {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Image.asset('assets/images/daily.png'),
-              Column(
-                children: [
-                  const SizedBox(height: 100),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: _buildSkeletonCard(390, 250),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Expanded(child: _buildSkeletonScrollableContent()),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSkeletonCard(double width, double height) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSkeletonScrollableContent() {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    _buildSkeletonCard(200, 20),
-                    const Spacer(),
-                    _buildSkeletonCard(50, 20),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Column(
-                  children: [
-                    Row(
-                      children: List.generate(
-                        2,
-                        (index) => Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: index == 0 ? 0 : 8,
-                              right: index == 1 ? 0 : 8,
-                            ),
-                            child: _buildSkeletonCard(double.infinity, 134),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: List.generate(
-                        2,
-                        (index) => Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: index == 0 ? 0 : 8,
-                              right: index == 1 ? 0 : 8,
-                            ),
-                            child: _buildSkeletonCard(double.infinity, 134),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 22),
-                Row(
-                  children: [
-                    _buildSkeletonCard(150, 20),
-                    const Spacer(),
-                    _buildSkeletonCard(50, 20),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 204,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    itemCount: 3,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: _buildSkeletonCard(132, 196),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
+  // The actual card shown in the Daily Checkin screen.
   Widget _buildDailyCheckinCard() {
     return Container(
       height: 250,

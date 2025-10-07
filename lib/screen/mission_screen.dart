@@ -162,8 +162,10 @@ class _MissionScreenState extends State<MissionScreen> {
                 ),
                 itemCount: _joinMissions.length,
                 itemBuilder: (context, index) {
-                  final mission = _joinMissions[index];
-                  return _buildJoinMissionCard(mission, index: index);
+                  return _buildJoinMissionCard(
+                    _joinMissions[index],
+                    index: index,
+                  );
                 },
               ),
             ],
