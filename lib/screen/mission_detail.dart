@@ -12,12 +12,21 @@ class MissionDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Mission Details",
-          style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600),
+          "Mission Detail",
+          style: GoogleFonts.inter(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            height: 1.5,
+          ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
