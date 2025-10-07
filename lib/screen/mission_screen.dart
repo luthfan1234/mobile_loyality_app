@@ -124,7 +124,7 @@ class _MissionScreenState extends State<MissionScreen> {
   Widget _Scrollable_Contain(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 100),
+      margin: const EdgeInsets.only(top: 420),
 
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -148,9 +148,12 @@ class _Link_Group extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 368,
-      decoration: const BoxDecoration(
-        color: Color(0xFFE4D9F8),
+      height: 434,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/current_missions.png'),
+          fit: BoxFit.cover,
+        ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -170,7 +173,6 @@ Widget _buildAppBar(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Left: Icon + "1.200 Points"
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
