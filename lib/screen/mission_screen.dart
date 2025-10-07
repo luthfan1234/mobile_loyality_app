@@ -134,10 +134,126 @@ class _MissionScreenState extends State<MissionScreen> {
         ),
       ),
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
-        children: [],
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+        children: [
+          Text(
+            'Join Missions',
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 16),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 169 / 166,
+            ),
+            itemCount: 6,
+            itemBuilder: (context, index) => _buildMissionCard(index),
+          ),
+        ],
       ),
     );
+  }
+
+  Widget _buildMissionCard(int index) {
+    final missions = [
+      "Social Media Engagement",
+      "Daily Streak",
+      "Invite Friends",
+      "Complete Profile",
+      "First Purchase",
+      "Write a Review",
+    ];
+    final points = [
+      "+500 points",
+      "+100 points",
+      "+1000 points",
+      "+200 points",
+      "+500 points",
+      "+150 points",
+    ];
+
+    return Container(
+          width: 169,
+          height: 166,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                // ignore: deprecated_member_use
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF4E6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    points[index],
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFFFCB351),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  missions[index],
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                const Spacer(),
+                OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFF7743DB), width: 1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    minimumSize: const Size(143, 32),
+                  ),
+                  child: Text(
+                    'Join Mission',
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF7743DB),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+        .animate()
+        .fadeIn(duration: 500.ms, delay: (150 * index).ms)
+        .slideY(begin: 0.5, end: 0, curve: Curves.easeOutCubic);
   }
 }
 
