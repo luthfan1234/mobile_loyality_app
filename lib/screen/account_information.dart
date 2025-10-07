@@ -337,5 +337,4 @@ class _AccountInformationScreenState extends State<AccountInformationScreen> {
       ],
     );
   }
-
 }
