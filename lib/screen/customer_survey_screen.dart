@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 // Simple data class for a survey question
 class SurveyQuestion {
@@ -42,7 +43,7 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
         "Somewhat unlikely",
         "Neutral",
         "Somewhat likely",
-        "Extremely likely"
+        "Extremely likely",
       ],
     ),
     SurveyQuestion(
@@ -57,7 +58,7 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
         "More variety",
         "Lower prices",
         "Better packaging",
-        "More online content"
+        "More online content",
       ],
     ),
   ];
@@ -84,18 +85,6 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
     final bool isLastQuestion = _currentQuestionIndex == _questions.length - 1;
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: const Text(
-          'Customer Survey',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -108,11 +97,43 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                // Top header: back icon (above) and title (below), left aligned
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.of(context).pop(),
+                        child: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Customer Survey',
+                        style: GoogleFonts.inter(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
                 Expanded(
                   child: Container(
+                    width: double.infinity,
+                    height:
+                        MediaQuery.of(context).size.height *
+                        0.5, // 70% dari tinggi layar
                     padding: const EdgeInsets.all(20.0),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.95),
+                      color: Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
@@ -123,8 +144,9 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                           children: List.generate(_questions.length, (index) {
                             return Expanded(
                               child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 3),
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 3,
+                                ),
                                 height: 4,
                                 decoration: BoxDecoration(
                                   color: index <= _currentQuestionIndex
@@ -142,7 +164,7 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                         Text(
                           "Question ${_currentQuestionIndex + 1} of ${_questions.length}",
                           style: GoogleFonts.inter(
-                            color: const Color(0xFF7743DB),
+                            color: const Color(0xFFFCB351),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -161,15 +183,17 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                           child: ListView.builder(
                             itemCount: currentQuestion.options.length,
                             itemBuilder: (context, index) {
-                              final option =
-                                  currentQuestion.options[index];
+                              final option = currentQuestion.options[index];
                               return Container(
                                 margin: const EdgeInsets.only(bottom: 12),
                                 decoration: BoxDecoration(
+                                  color: _selectedAnswer == option
+                                      ? Color(0xFFE4D9F8)
+                                      : const Color(0xFFF2F4F7),
                                   border: Border.all(
                                     color: _selectedAnswer == option
                                         ? const Color(0xFF7743DB)
-                                        : Colors.grey.shade300,
+                                        : Color(0xFFE4E7EC),
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -198,14 +222,14 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 // Bottom button is now outside the container
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: _selectedAnswer == null ? null : _nextQuestion,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF7743DB),
+                      backgroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -217,10 +241,13 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: _selectedAnswer == null
+                            ? Colors.white54
+                            : Color(0xFF7743DB),
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
