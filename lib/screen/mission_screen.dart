@@ -214,8 +214,22 @@ class _MissionScreenState extends State<MissionScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(width: 150, height: 24, color: Colors.white),
-                  Container(width: 50, height: 20, color: Colors.white),
+                  Container(
+                    width: 150,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  Container(
+                    width: 50,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -253,7 +267,14 @@ class _MissionScreenState extends State<MissionScreen> {
               const SizedBox(height: 16),
               Align(
                 alignment: Alignment.center,
-                child: Container(width: 80, height: 24, color: Colors.white),
+                child: Container(
+                  width: 80,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
             ],
           ),
@@ -293,7 +314,14 @@ class _MissionScreenState extends State<MissionScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(width: 120, height: 24, color: Colors.white),
+              Container(
+                width: 120,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               const SizedBox(height: 20),
               GridView.builder(
                 shrinkWrap: true,
