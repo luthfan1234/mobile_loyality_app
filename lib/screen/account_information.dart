@@ -417,10 +417,4 @@ class _AccountInformationScreenState extends State<AccountInformationScreen> {
     );
   }
 
-  Widget _buildInfoTile(String title, String subtitle) {
-    return ListTile(
-      title: Text(title, style: GoogleFonts.inter(fontWeight: FontWeight.w500)),
-      subtitle: Text(subtitle, style: GoogleFonts.inter(color: Colors.grey)),
-    );
-  }
 }
