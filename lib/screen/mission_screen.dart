@@ -124,7 +124,7 @@ class _MissionScreenState extends State<MissionScreen> {
   Widget _Scrollable_Contain(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 420),
+      margin: const EdgeInsets.only(top: 450),
 
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -148,7 +148,7 @@ class _Link_Group extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 434,
+      height: 460,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/current_missions.png'),
@@ -165,18 +165,55 @@ class _Link_Group extends StatelessWidget {
           children: [
             Row(
               children: [
-                _buildMissionCard(0),
-                const SizedBox(width: 12),
-                _buildMissionCard(1),
+                Text(
+                  'Current Missions (6)',
+                  style: GoogleFonts.inter(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    height: 1.5,
+                  ),
+                ),
+                Spacer(),
+                Text(
+                  'History',
+                  style: GoogleFonts.inter(
+                    color: Color(0xFF7743DB),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 12),
-            Row(
+            const SizedBox(height: 16),
+            Column(
               children: [
-                _buildMissionCard(2),
-                const SizedBox(width: 12),
-                _buildMissionCard(3),
+                Row(
+                  children: [
+                    _buildMissionCard(0),
+                    const SizedBox(width: 12),
+                    _buildMissionCard(1),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    _buildMissionCard(2),
+                    const SizedBox(width: 12),
+                    _buildMissionCard(3),
+                  ],
+                ),
               ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'See all',
+              style: GoogleFonts.inter(
+                color: Color(0xFF7743DB),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                height: 1.5,
+              ),
             ),
           ],
         ),
