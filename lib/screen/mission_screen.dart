@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/models/join_mission.dart';
+import 'package:flutter_application_2/screen/mission_detail.dart';
+import 'package:flutter_application_2/utils/page_route_animation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -12,6 +15,44 @@ class MissionScreen extends StatefulWidget {
 
 class _MissionScreenState extends State<MissionScreen> {
   bool _isLoading = true;
+  final DraggableScrollableController _scrollController =
+      DraggableScrollableController();
+
+  // Centralized data for "Join Missions"
+  final List<JoinMission> _joinMissions = const [
+    JoinMission(
+      id: 'customer_survey',
+      title: "Social Media Engagement",
+      points: "+500 points",
+      description:
+          "Help us understand your social media habits! Complete a short survey to earn points and help us improve our community engagement.",
+    ),
+    JoinMission(
+      id: 'daily_streak',
+      title: "Daily Streak",
+      points: "+100 points",
+    ),
+    JoinMission(
+      id: 'invite_friends',
+      title: "Invite Friends",
+      points: "+1000 points",
+    ),
+    JoinMission(
+      id: 'complete_profile',
+      title: "Complete Profile",
+      points: "+200 points",
+    ),
+    JoinMission(
+      id: 'first_purchase',
+      title: "First Purchase",
+      points: "+500 points",
+    ),
+    JoinMission(
+      id: 'write_review',
+      title: "Write a Review",
+      points: "+150 points",
+    ),
+  ];
 
   @override
   void initState() {
@@ -23,6 +64,20 @@ class _MissionScreenState extends State<MissionScreen> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _expandSheet() {
+    _scrollController.animateTo(
+      0.85, // maxChildSize
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -46,11 +101,76 @@ class _MissionScreenState extends State<MissionScreen> {
         const SizedBox(height: 24),
         Expanded(
           child: Stack(
-            children: [const _Link_Group(), _Scrollable_Contain(context)],
+            children: [
+              _CurrentMissionsSection(onSeeAllTap: _expandSheet),
+              _buildJoinMissionSheet(),
+            ],
           ),
         ),
       ],
     ).animate();
+  }
+
+  Widget _buildJoinMissionSheet() {
+    return DraggableScrollableSheet(
+      controller: _scrollController,
+      initialChildSize: 0.25,
+      minChildSize: 0.25,
+      maxChildSize: 0.85,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 5),
+            ],
+          ),
+          child: ListView(
+            controller: scrollController,
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              Text(
+                'Join Missions',
+                style: GoogleFonts.inter(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 169 / 166,
+                ),
+                itemCount: _joinMissions.length,
+                itemBuilder: (context, index) {
+                  final mission = _joinMissions[index];
+                  return _buildJoinMissionCard(mission, index: index);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildLoadingSkeleton() {
@@ -61,125 +181,143 @@ class _MissionScreenState extends State<MissionScreen> {
         const SizedBox(height: 24),
         Expanded(
           child: Stack(
-            children: [const _Link_Group(), _buildSkeletonScrollableContent()],
+            children: [
+              _buildCurrentMissionsSkeleton(),
+              _buildJoinMissionsSkeleton(),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSkeletonScrollableContent() {
+  Widget _buildCurrentMissionsSkeleton() {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 100),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      height: 460,
+      decoration: BoxDecoration(
+        color: const Color(0xFF7743DB).withOpacity(0.1),
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
       ),
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 30, 20, 16),
-        children: [
-          _buildSkeletonListSection(),
-          const SizedBox(height: 16),
-          _buildSkeletonListSection(),
-        ],
+      child: Shimmer.fromColors(
+        baseColor: Colors.white.withOpacity(0.5),
+        highlightColor: Colors.white.withOpacity(0.8),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(width: 150, height: 24, color: Colors.white),
+                  Container(width: 50, height: 20, color: Colors.white),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 160,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 160,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.center,
+                child: Container(width: 80, height: 24, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildSkeletonCard(double width, double height) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+  Widget _buildJoinMissionsSkeleton() {
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
+        height: MediaQuery.of(context).size.height * 0.25,
+        decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSkeletonListSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildSkeletonCard(100, 16),
-        const SizedBox(height: 16),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-        const SizedBox(height: 8),
-        _buildSkeletonCard(double.infinity, 50),
-      ],
-    );
-  }
-
-  // ignore: non_constant_identifier_names
-  Widget _Scrollable_Contain(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(top: 436),
-
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
-        children: [
-          Text(
-            'Join Missions',
-            style: GoogleFonts.inter(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
           ),
-          const SizedBox(height: 16),
-          GridView.builder(
-            shrinkWrap: true,
+        ),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: ListView(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 169 / 166,
-            ),
-            itemCount: 6,
-            itemBuilder: (context, index) => _buildMissionCard(index),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Container(width: 120, height: 24, color: Colors.white),
+              const SizedBox(height: 20),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 169 / 166,
+                ),
+                itemCount: 6,
+                itemBuilder: (context, index) => Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildMissionCard(int index) {
-    final missions = [
-      "Social Media Engagement",
-      "Daily Streak",
-      "Invite Friends",
-      "Complete Profile",
-      "First Purchase",
-      "Write a Review",
-    ];
-    final points = [
-      "+500 points",
-      "+100 points",
-      "+1000 points",
-      "+200 points",
-      "+500 points",
-      "+150 points",
-    ];
-
+  Widget _buildJoinMissionCard(JoinMission mission, {required int index}) {
     return Container(
           width: 169,
           height: 166,
@@ -188,7 +326,6 @@ class _MissionScreenState extends State<MissionScreen> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 6,
                 offset: const Offset(0, 3),
@@ -210,7 +347,7 @@ class _MissionScreenState extends State<MissionScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    points[index],
+                    mission.points,
                     style: GoogleFonts.inter(
                       color: const Color(0xFFFCB351),
                       fontSize: 12,
@@ -221,7 +358,7 @@ class _MissionScreenState extends State<MissionScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  missions[index],
+                  mission.title,
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -230,7 +367,14 @@ class _MissionScreenState extends State<MissionScreen> {
                 ),
                 const Spacer(),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CustomPageRoute(
+                        child: MissionDetailScreen(mission: mission),
+                      ),
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFF7743DB), width: 1),
                     shape: RoundedRectangleBorder(
@@ -257,20 +401,21 @@ class _MissionScreenState extends State<MissionScreen> {
   }
 }
 
-// ignore: camel_case_types
-class _Link_Group extends StatelessWidget {
-  const _Link_Group();
+class _CurrentMissionsSection extends StatelessWidget {
+  final VoidCallback onSeeAllTap;
+  const _CurrentMissionsSection({super.key, required this.onSeeAllTap});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 460,
       decoration: BoxDecoration(
-        image: DecorationImage(
+        image: const DecorationImage(
           image: AssetImage('assets/images/current_missions.png'),
           fit: BoxFit.cover,
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
         ),
@@ -290,11 +435,11 @@ class _Link_Group extends StatelessWidget {
                     height: 1.5,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   'History',
                   style: GoogleFonts.inter(
-                    color: Color(0xFF7743DB),
+                    color: const Color(0xFF7743DB),
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),
@@ -306,29 +451,32 @@ class _Link_Group extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    _buildMissionCard(0),
+                    _buildCurrentMissionCard(0),
                     const SizedBox(width: 12),
-                    _buildMissionCard(1),
+                    _buildCurrentMissionCard(1),
                   ],
                 ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    _buildMissionCard(2),
+                    _buildCurrentMissionCard(2),
                     const SizedBox(width: 12),
-                    _buildMissionCard(3),
+                    _buildCurrentMissionCard(3),
                   ],
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            Text(
-              'See all',
-              style: GoogleFonts.inter(
-                color: Color(0xFF7743DB),
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                height: 1.5,
+            GestureDetector(
+              onTap: onSeeAllTap,
+              child: Text(
+                'See all',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF7743DB),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                ),
               ),
             ),
           ],
@@ -337,7 +485,7 @@ class _Link_Group extends StatelessWidget {
     );
   }
 
-  Widget _buildMissionCard(int index) {
+  Widget _buildCurrentMissionCard(int index) {
     return Expanded(
       child: Container(
         height: 160,
@@ -347,7 +495,6 @@ class _Link_Group extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.15),
               blurRadius: 12,
               spreadRadius: 0,
@@ -458,7 +605,7 @@ class _Link_Group extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                color: Color(0xFF475467),
+                color: const Color(0xFF475467),
               ),
             ),
           ],
@@ -498,8 +645,6 @@ Widget _buildAppBar(BuildContext context) {
                         ),
                       ],
                     ),
-
-                    // Row 3: Expiring text
                     Text(
                       'Complete missions to get points',
                       style: GoogleFonts.inter(
