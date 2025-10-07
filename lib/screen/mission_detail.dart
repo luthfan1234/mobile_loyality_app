@@ -13,18 +13,21 @@ class MissionDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(mission.title),
-        backgroundColor: const Color(0xFF7743DB),
+        title: Text(
+          "Mission Details",
+          style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'About this Mission',
+              mission.title,
               style: GoogleFonts.inter(
-                fontSize: 22,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -32,14 +35,18 @@ class MissionDetailScreen extends StatelessWidget {
             Text(
               mission.description,
               style: GoogleFonts.inter(
-                fontSize: 16,
+                fontSize: 14,
+                color: const Color(0xFF475467),
+                fontWeight: FontWeight.w400,
                 height: 1.5,
               ),
             ),
             const Spacer(), // Pushes the button to the bottom
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF7743DB),
+                backgroundColor: mission.id == 'customer_survey'
+                    ? const Color(0xFF7743DB)
+                    : Colors.grey,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -49,16 +56,19 @@ class MissionDetailScreen extends StatelessWidget {
                   ? () {
                       Navigator.push(
                         context,
-                        CustomPageRoute(
-                          child: const CustomerSurveyScreen(),
-                        ),
+                        CustomPageRoute(child: const CustomerSurveyScreen()),
                       );
                     }
-                  : null, // Disable button for other missions for now
+                  : null,
               child: Text(
-                'Start Mission',
+                mission.id == 'customer_survey'
+                    ? 'Start Mission'
+                    : 'Not Available',
                 style: GoogleFonts.inter(
                   fontSize: 16,
+                  color: mission.id == 'customer_survey'
+                      ? const Color(0xFFE4D9F8)
+                      : Colors.white54,
                   fontWeight: FontWeight.w600,
                 ),
               ),

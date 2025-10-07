@@ -20,10 +20,7 @@ class _CustomerSurveyScreenState extends State<CustomerSurveyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Customer Survey'),
-        backgroundColor: const Color(0xFF7743DB),
-      ),
+      appBar: AppBar(title: const Text('Customer Survey')),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: _questions.length,
